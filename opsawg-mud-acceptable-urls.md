@@ -18,7 +18,6 @@ pi:    # can use array (if all yes) or hash here
 
 author:
 
-
 - ins: M. Richardson
   name: Michael Richardson
   org: Sandelman Software Works
@@ -29,6 +28,7 @@ normative:
   RFC8499:
 
 informative:
+  I-D.reddy-opsawg-mud-tls:
   I-D.richardson-opsawg-securehomegateway-mud: securehomegateway-mud
   boycrieswolf:
     title: "The Boy Who Cried Wolf"
@@ -118,8 +118,81 @@ As explained in the previous section, upgrades may not always occur immediately 
 
 In this case the old device will be performing unwanted connections, and the MUD controller when be alerting the device owner that the device is mis-behaving.
 This causes a {{boycrieswolf}} situation, leading to real security issues being ignored.
-This is a serious issue as documented also in {{boywolfinfosec}}, and {{falsemalware}}.
+This is a serious issue as documented also in {{boywolfinfosec}}, and
+{{falsemalware}}.
 
+### Significant changes to protocols
+
+{{I-D.reddy-opsawg-mud-tls}} suggests MUD definitions to allow examination of TLS protocol details.
+Such a profile may be very specific to the TLS library which is shipped.
+Changes to the library (including bug fixes) may cause significant changes to
+the profile, requiring changes to the profile described in the MUD file.
+Such changes are likely neither forward nor backward compatible with other
+versions, and in place updates to MUD files is not indicated.
+
+## Motivation for updating MUD URLs
+
+While many small tweaks to a MUD file can be done in place, the situation
+described above, particularly when it comes to removing capabilities will
+require updates to the MUD URL.
+A strategy is do this securely is needed, and the rest of this document
+provides a mechanism to do this securely.
+
+# Threat model for MUD URLs
+
+Only the DHCP and LLDP MUD URL mechanisms are sufficiently close to the firmware
+version that they can be easily updated when the firmware is updated.
+Because of that sensitivity, they are also easily changed by malware.
+
+There are mitigating mechanisms which may be enough.
+The MUD files are signed by the manufacturer.  
+{{RFC8520}} has not established a trust model for MUD controllers to
+determine whether a signature from a specific entity is legitimate as a
+signature for a particular device.
+{{RFC8520}} leaves this to the industry to work out.
+
+## leveraging the manufacturer signature
+
+Many MUD controllers currently use a Trust on First Use mechanism where the
+first time a signature from a device is verified, the signatory is recorded.
+Subsequent updates to that MUD file MUST be signed by the same entity to be
+accepted.
+
+Based upon this process, an update to the MUD URL would be valid if the new
+MUD file was signed by the same entity that signed the previous entry.
+This mechanism permits a replacement URL to be any URL that the same
+manufacturer can provide.
+
+## Concerns about same-signer mechanism
+
+There is still a potential threat: a manufacturer which has many products may
+have a MUD definition for another product that has the privileges that the
+malware desires.
+
+# Proposed possible Extension
+
+The first MUD file which is defined for a device can come from an IDevID, or
+via Trust on First Use with DHCP.  
+This initial, initially trusted, MUD file will be called the "root" file.
+
+MUD files start with a self-referential MUD-URL attribute.
+
+## Semantic changes only
+
+Proposal 1 involves no changes to the definition.
+It is instead a semantic change: updates to the MUD URL for a device must
+come from a URL that is identical to the mud-URL in the root file, but may
+have a different basename component.
+
+That is, if the mud-url is http://example.com/hello/there/file.json then any
+URL that starts with http://example.com/hello/there/ would be acceptable.
+Note: the new URLs are not relative.
+
+## Add an extension
+
+Proposal 2 involves an extension to the MUD definition.
+A new extension, _mud-base-url_ would be created that would contain the value
+http://example.com/hello/there/ rather than being implied from the mud-url.
 
 # Privacy Considerations
 
