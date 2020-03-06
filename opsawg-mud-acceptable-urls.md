@@ -23,6 +23,11 @@ author:
   org: Sandelman Software Works
   email: mcr+ietf@sandelman.ca
 
+- ins: W. Pan
+  name: Wei Pan
+  org: Huawei Technologies
+  email: william.panwei@huawei.com
+
 normative:
   RFC8520:
   RFC8499:
