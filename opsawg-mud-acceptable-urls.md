@@ -35,8 +35,8 @@ author:
   email: lear@cisco.com
 
 normative:
+  RFC3986:
   RFC8520:
-  RFC8499:
 
 informative:
   I-D.reddy-opsawg-mud-tls:
