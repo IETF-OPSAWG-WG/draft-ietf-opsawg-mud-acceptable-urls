@@ -1,7 +1,7 @@
 ---
 title: Authorized update to MUD URLs
 abbrev: mud-acceptable-urls
-docname: draft-richardson-opsawg-mud-acceptable-urls-00
+docname: draft-richardson-opsawg-mud-acceptable-urls-01
 
 # stand_alone: true
 
@@ -9,6 +9,7 @@ ipr: trust200902
 area: Operations
 wg: OPSAWG Working Group
 kw: Internet-Draft
+updates: 8520
 cat: bcp
 
 pi:    # can use array (if all yes) or hash here
@@ -23,9 +24,19 @@ author:
   org: Sandelman Software Works
   email: mcr+ietf@sandelman.ca
 
+- ins: W. Pan
+  name: Wei Pan
+  org: Huawei Technologies
+  email: william.panwei@huawei.com
+
+- ins: E. Lear
+  name: Eliot Lear
+  org: Cisco Systems
+  email: lear@cisco.com
+
 normative:
+  RFC3986:
   RFC8520:
-  RFC8499:
 
 informative:
   I-D.reddy-opsawg-mud-tls:
@@ -145,7 +156,7 @@ version that they can be easily updated when the firmware is updated.
 Because of that sensitivity, they are also easily changed by malware.
 
 There are mitigating mechanisms which may be enough.
-The MUD files are signed by the manufacturer.  
+The MUD files are signed by the manufacturer.
 {{RFC8520}} has not established a trust model for MUD controllers to
 determine whether a signature from a specific entity is legitimate as a
 signature for a particular device.
@@ -169,38 +180,72 @@ There is still a potential threat: a manufacturer which has many products may
 have a MUD definition for another product that has the privileges that the
 malware desires.
 
-# Proposed possible Extension
+# Changes to RFC8520
 
 The first MUD file which is defined for a device can come from an IDevID, or
-via Trust on First Use with DHCP.  
-This initial, initially trusted, MUD file will be called the "root" file.
+via Trust on First Use with DHCP or LLDP or another mechanism.
 
-MUD files start with a self-referential MUD-URL attribute.
+This first, initially trusted, MUD file will be called the "root" MUD file.
 
-## Semantic changes only
+MUD files contain a self-referential MUD-URL attribute that point to
+a MUD file located on the vendor's web site.
+While the IDevID, DHCP and LLDP mechanisms only transmit a URL, there are
+some newer, not yet standardized proposals that would transmit an entire MUD
+file.
 
-Proposal 1 involves no changes to the definition.
-It is instead a semantic change: updates to the MUD URL for a device must
-come from a URL that is identical to the mud-URL in the root file, but may
-have a different basename component.
+The MUD-URL MUST always be an Absolute URI: see {{RFC3986}} section 4.3.
 
-That is, if the mud-url is http://example.com/hello/there/file.json then any
-URL that starts with http://example.com/hello/there/ would be acceptable.
-Note: the new URLs are not relative.
+The URL found in the MUD-URL attribute is to be called the canonical MUD URL for the device.
 
-## Add an extension
+The MUD-SIGNATURE attribute in the MUD file SHOULD be a relative URI (see {{RFC3986}} section 4.2) with the (hierarchical) base URL for this reference being the MUD-URL attribute.
 
-Proposal 2 involves an extension to the MUD definition.
-A new extension, _mud-base-url_ would be created that would contain the value
-http://example.com/hello/there/ rather than being implied from the mud-url.
+Subsequent MUD files are considered valid if:
+
+* have the same initial Base-URI as the MUD-URL, but may have a different final part
+* they are signed by the same End Entity (same trusted CA and same SubjectAltName) as the "root" MUD file
+
+Section 5.2 of {{RFC3986}} details many cases for calculating the Base-URI.
+The test is simplified to: remove everything to the right of the last (rightmost) "/" in the URL of "root" MUD  file URL, and the proposed new URL.
+The resulting two strings MUST be identical.
+
+For as a simple example, if the "root" mud-url is http://example.com/hello/there/file.json then
+any URL that starts with http://example.com/hello/there/ would be acceptable, such as
+http://example.com/hello/there/revision2.json.
+
+Once the new MUD file is accepted, then it becomes the new "root" MUD file, and
+any subsequent updates must be relative to the MUD-URL in that file.
+This process allows a manufacturer to rework their file structure, to change web server hostnames (such as  when there is an acquisition or merger), etc. so long as they retain the old structure long enough for
+all devices to upgrade at least once.
 
 # Privacy Considerations
 
-TBD
+The MUD URL contains sensitive model and even firmware revision numbers.
+Thus the MUD URL identifies the make, model and revision of a device.
+{{RFC8520}} already identifies this privacy concern, and suggests use of TLS so that the HTTP requests that retrieve the MUD file do not divulge that level of detail.
+However, it is possible that even observing the traffic to that manufacturer may be revealing, and {{RFC8520}} goes on to suggest use of a proxy as well.
 
 # Security Considerations
 
-TBD
+Prior to the standardization of the process in this document, if a device was infiltrated by malware, and said malware wished to make accesses beyond what the current MUD file allowed, the the malware would have to:
+1. arrange for an equivalent MUD file to be visible somewhere on the Internet
+2. depend upon the MUD-manager either not checking signatures, or
+3. somehow get the manufacturer to sign the alternate MUD
+4. announce this new URL via DHCP or LLDP, updating the MUD-manager with the new permissions.
+
+One way to accomplish (3) is to leverage the existence of MUD files created by the manufacturer for different classes of devices.
+Such files would already be signed by the same manufacturer, eliminating the need to spoof a signature.
+
+With the standardization of the process in this document, then the attacker can no longer point to arbitrary MUD files in step 4, but can only make use of MUD files that the manufacturer has already provided for this device.
+
+Manufacturers are advised to maintain an orderly layout of MUD files in their web servers,
+with each unique producting having its own directory/pathname.
+
+The process described updates only MUD-managers and the processes that manufacturers use to manage the location of their MUD files.
+
+A manufacturer which has not managed their MUD files in the the way described here can deploy new directories of per-product MUD files, and then can update the existing MUD files in place to point to the new URLs
+using the MUD-URL attribute.
+
+There is therefore no significant flag day: MUD managers may implement the new policy without significant concern about backwards compatibility.
 
 --- back
 
