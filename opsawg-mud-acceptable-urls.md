@@ -152,7 +152,7 @@ Only the DHCP and LLDP MUD URL mechanisms are sufficiently close to the firmware
 version that they can be easily updated when the firmware is updated.
 Because of that sensitivity, they may also be easily changed by malware!
 
-There are mitigating mechanisms which may be enough to deal with this problem when 
+There are mitigating mechanisms which may be enough to deal with this problem when
 MUD files are signed by the manufacturer.
 It should be noted that {{RFC8520}} has not established a trust model for MUD controllers to
 determine whether a signature from a specific entity is legitimate as a
@@ -226,8 +226,8 @@ The MUD-SIGNATURE attribute in the MUD file SHOULD be a relative URI (see {{RFC3
 
 Subsequent MUD files are considered valid if:
 
-* MUD-SIGNATURE attribute in the MUD file have the same initial Base-URI as the MUD-URL, but may have a different final part
-* they are signed by the same End Entity (same trusted CA and same SubjectAltName) as the "root" MUD file
+* have the same initial Base-URI as the MUD-URL, but may have a different final part
+* they are signed by the same End Entity (same trusted CA and same SubjectAltName) as the "root" MUD file.
 
 Section 5.2 of {{RFC3986}} details many cases for calculating the Base-URI.
 The test is simplified to: remove everything to the right of the last (rightmost) "/" in the URL of "root" MUD  file URL, and the proposed new URL.
@@ -253,7 +253,7 @@ However, it is possible that even observing the traffic to that manufacturer may
 
 # Security Considerations
 
-Prior to the standardization of the process in this document, if a device was infiltrated by malware, and said malware wished to make accesses beyond what the current MUD file allowed, the the malware would have to: 
+Prior to the standardization of the process in this document, if a device was infiltrated by malware, and said malware wished to make accesses beyond what the current MUD file allowed, the the malware would have to:
 1. arrange for an equivalent MUD file to be visible somewhere on the Internet
 2. depend upon the MUD-manager either not checking signatures, or
 3. somehow get the manufacturer to sign the alternate MUD
