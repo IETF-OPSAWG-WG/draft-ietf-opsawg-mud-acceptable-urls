@@ -24,10 +24,10 @@ author:
   org: Sandelman Software Works
   email: mcr+ietf@sandelman.ca
 
-- ins: W. Pan
-  name: Wei Pan
-  org: Huawei Technologies
-  email: william.panwei@huawei.com
+- ins: J. Yang
+  name: Jie Yang
+  org: Huawei Technologies Co., Ltd.
+  email: jay.yang@huawei.com
 
 - ins: E. Lear
   name: Eliot Lear
@@ -190,7 +190,7 @@ This first, initially trusted, MUD file will be called the "root" MUD file.
 MUD files contain a self-referential MUD-URL attribute that point to
 a MUD file located on the vendor's web site.
 While the IDevID, DHCP and LLDP mechanisms only transmit a URL, there are
-some newer, not yet standardized proposals that would transmit an entire MUD
+some newer, not yet standardized proposals that would fetch an entire MUD
 file.
 
 The MUD-URL MUST always be an Absolute URI: see {{RFC3986}} section 4.3.
@@ -201,8 +201,8 @@ The MUD-SIGNATURE attribute in the MUD file SHOULD be a relative URI (see {{RFC3
 
 Subsequent MUD files are considered valid if:
 
-* have the same initial Base-URI as the MUD-URL, but may have a different final part
-* they are signed by the same End Entity (same trusted CA and same SubjectAltName) as the "root" MUD file
+* MUD-SIGNATURE attribute in the MUD file have the same initial Base-URI as the MUD-URL, but may have a different final part
+* they are signed by the same End Entity (same trusted CA and same SubjectAltName) as the "root" MUD file. In resale cases, they should have the same trust anchor
 
 Section 5.2 of {{RFC3986}} details many cases for calculating the Base-URI.
 The test is simplified to: remove everything to the right of the last (rightmost) "/" in the URL of "root" MUD  file URL, and the proposed new URL.
