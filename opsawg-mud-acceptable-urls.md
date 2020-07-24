@@ -191,7 +191,7 @@ MUD files contain a self-referential MUD-URL attribute that point to
 a MUD file located on the vendor's web site.
 While the IDevID, DHCP and LLDP mechanisms only transmit a URL, there are
 some newer, not yet standardized proposals that would fetch an entire MUD
-file.
+file from the device, such as {{?I-D.jimenez-t2trg-mud-coap}}.
 
 The MUD-URL MUST always be an Absolute URI: see {{RFC3986}} section 4.3.
 
