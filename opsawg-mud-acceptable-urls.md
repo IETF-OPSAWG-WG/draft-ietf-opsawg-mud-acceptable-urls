@@ -1,7 +1,7 @@
 ---
 title: Authorized update to MUD URLs
 abbrev: mud-acceptable-urls
-docname: draft-richardson-opsawg-mud-acceptable-urls-01
+docname: draft-richardson-opsawg-mud-acceptable-urls-02
 
 # stand_alone: true
 
@@ -64,15 +64,12 @@ This document provides a way for an RFC8520 Manufacturer Usage Description
 # Introduction
 
 {{RFC8520}} provides a standardized way to describe how a specific purpose
-device makes use of Internet resources.  Access Control Lists (ACLs) can be
-defined in an RFC8520 Manufacturer Usage Description (MUD) file that permit
-a device to access Internet resources by DNS name.
-
+device makes use of Internet resources and associated suggested network behavior, which are describled in a MUD file hosted in its manufacture's server. By providing a MUD URL, the network manager can locate this MUD file.
 MUD URLs can come from a number of sources:
 
 * IDevID Extensions
-* DHCP
-* LLDP
+* DHCP option
+* LLDP TLV
 
 * {{-securehomegateway-mud}} proposes to scan them from QRcodes.
 
@@ -114,11 +111,11 @@ The MUD file protected the device such that it could either not be accessed at a
 Useful and needed upgrades to the firmware could add credentials to that service, permitting it to be opened up for more general access.
 The new MUD file would provide for such access, but when combined with the weak security of the old firmware, results in a compromised device.
 
-While there is an argument that old firmware was insecure and should be replaced, it is often the case that the upgrade process involves downtown, or can introduce risks due to needed evaluations not having been completed yet.
-As an example: moving vehicles (cars, airplanes, etc.) should not perform upgrades while in motion.
+While there is an argument that old firmware was insecure and should be replaced, it is often the case that the upgrade process involves downtime, or can introduce risks due to needed evaluations not having been completed yet.
+As an example: moving vehicles (cars, airplanes, etc.) should not perform upgrades while in motion!
 It is probably undesireable to perform any upgrade to an airplane outside of its service facility.
 The owner of a vehicle may desire to only perform software upgrades when they are at home, and could make other arrangements for transporation, rather than when parked at a remote cabin.
-The situation for medical devices is even more complex.
+The situation for upgrades of medical devices has even more	considerations involving regulatory compliance.
 
 ### Removing capabilities
 
@@ -128,45 +125,45 @@ In this case, the new MUD file will forbid some connection which the old firmwar
 As explained in the previous section, upgrades may not always occur immediately upon release of the new firmware.
 
 In this case the old device will be performing unwanted connections, and the MUD controller when be alerting the device owner that the device is mis-behaving.
-This causes a {{boycrieswolf}} situation, leading to real security issues being ignored.
+This causes a false positive situation (see {{boycrieswolf}}, leading to real security issues being ignored.
 This is a serious issue as documented also in {{boywolfinfosec}}, and
 {{falsemalware}}.
 
 ### Significant changes to protocols
 
 {{I-D.reddy-opsawg-mud-tls}} suggests MUD definitions to allow examination of TLS protocol details.
-Such a profile may be very specific to the TLS library which is shipped.
+Such a profile may be very specific to the TLS library which is shipped in a device.
 Changes to the library (including bug fixes) may cause significant changes to
 the profile, requiring changes to the profile described in the MUD file.
 Such changes are likely neither forward nor backward compatible with other
-versions, and in place updates to MUD files is not indicated.
+versions, and in place updates to MUD files are therefore not indicated.
 
 ## Motivation for updating MUD URLs
 
 While many small tweaks to a MUD file can be done in place, the situation
 described above, particularly when it comes to removing capabilities will
-require updates to the MUD URL.
-A strategy is do this securely is needed, and the rest of this document
+suggests that changes to the MUD URL.
+A strategy for doing this securely is needed, and the rest of this document
 provides a mechanism to do this securely.
 
 # Threat model for MUD URLs
 
 Only the DHCP and LLDP MUD URL mechanisms are sufficiently close to the firmware
 version that they can be easily updated when the firmware is updated.
-Because of that sensitivity, they are also easily changed by malware.
+Because of that sensitivity, they may also be easily changed by malware!
 
-There are mitigating mechanisms which may be enough.
-The MUD files are signed by the manufacturer.
-{{RFC8520}} has not established a trust model for MUD controllers to
+There are mitigating mechanisms which may be enough to deal with this problem when 
+MUD files are signed by the manufacturer.
+It should be noted that {{RFC8520}} has not established a trust model for MUD controllers to
 determine whether a signature from a specific entity is legitimate as a
 signature for a particular device.
-{{RFC8520}} leaves this to the industry to work out.
+{{RFC8520}} leaves this to the industry to work out through supply chain arrangements or other heuristics.
 
-## leveraging the manufacturer signature
+## Trust on First Use (TOFU): leveraging the manufacturer signature
 
-Many MUD controllers currently use a Trust on First Use mechanism where the
-first time a signature from a device is verified, the signatory is recorded.
-Subsequent updates to that MUD file MUST be signed by the same entity to be
+Many MUD controllers currently use a Trust on First Use (TOFU) mechanism.The
+first time a signature from a device is verified, the identity of the signing authority is recorded.
+It is pinned. Subsequent updates to that MUD file must be signed by the same entity in order to be
 accepted.
 
 Based upon this process, an update to the MUD URL would be valid if the new
@@ -180,9 +177,37 @@ There is still a potential threat: a manufacturer which has many products may
 have a MUD definition for another product that has the privileges that the
 malware desires.
 
+The malware could simply change the expressed MUD URL to that of the
+other product, and it will be accepted by the MUD controller as
+valid.
+
+This works as long as manufacturers use a single key to sign all
+products. Some manufacturers could sign each product with a
+different key. Possibly, all the keys are collected into a single
+PKI, signed by a common certification authority. In this case, the
+question as to whether the MUD controller should pin the end-entity
+(EE) certificate, or the CA certificate. Pinning the EE certificate
+defends against malware that changes the product type, but keeps the
+manufacturer from being able to cycle the validity of the End-Entity
+Certificate for cryptographic hygiene reasons. Pinning the CA
+certificate allows the EE certificate to change, but may not defend
+against product type changes.
+
+It is possible to invent policy mechanisms that would link the EE
+certificate to a value that is in the MUD file. This could be a
+policy OID, or could involve some content in a subjectAltName.
+Future work could go in this direction. This document proposes a
+simpler solution.
+
+# Outline of proposed mechanism
+
+The document proposes to limit what MUD URLs are considered valid
+from the device, limiting new MUD URLs to be variations of the
+initial (presumed to be secure) URL.
+
 # Changes to RFC8520
 
-The first MUD file which is defined for a device can come from an IDevID, or
+The first MUD file which is defined for a device can come from an IDevID (which is considered more secure), or
 via Trust on First Use with DHCP or LLDP or another mechanism.
 
 This first, initially trusted, MUD file will be called the "root" MUD file.
@@ -202,7 +227,7 @@ The MUD-SIGNATURE attribute in the MUD file SHOULD be a relative URI (see {{RFC3
 Subsequent MUD files are considered valid if:
 
 * MUD-SIGNATURE attribute in the MUD file have the same initial Base-URI as the MUD-URL, but may have a different final part
-* they are signed by the same End Entity (same trusted CA and same SubjectAltName) as the "root" MUD file. In resale cases, they should have the same trust anchor
+* they are signed by the same End Entity (same trusted CA and same SubjectAltName) as the "root" MUD file
 
 Section 5.2 of {{RFC3986}} details many cases for calculating the Base-URI.
 The test is simplified to: remove everything to the right of the last (rightmost) "/" in the URL of "root" MUD  file URL, and the proposed new URL.
@@ -213,9 +238,11 @@ any URL that starts with http://example.com/hello/there/ would be acceptable, su
 http://example.com/hello/there/revision2.json.
 
 Once the new MUD file is accepted, then it becomes the new "root" MUD file, and
-any subsequent updates must be relative to the MUD-URL in that file.
+any subsequent updates must be relative to the MUD-URL in this new file.
 This process allows a manufacturer to rework their file structure, to change web server hostnames (such as  when there is an acquisition or merger), etc. so long as they retain the old structure long enough for
 all devices to upgrade at least once.
+
+(XXX: how should the trust anchor for the signature be updated when	there is Merger&Acquisition)
 
 # Privacy Considerations
 
@@ -226,7 +253,7 @@ However, it is possible that even observing the traffic to that manufacturer may
 
 # Security Considerations
 
-Prior to the standardization of the process in this document, if a device was infiltrated by malware, and said malware wished to make accesses beyond what the current MUD file allowed, the the malware would have to:
+Prior to the standardization of the process in this document, if a device was infiltrated by malware, and said malware wished to make accesses beyond what the current MUD file allowed, the the malware would have to: 
 1. arrange for an equivalent MUD file to be visible somewhere on the Internet
 2. depend upon the MUD-manager either not checking signatures, or
 3. somehow get the manufacturer to sign the alternate MUD
