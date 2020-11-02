@@ -3,8 +3,6 @@ title: Authorized update to MUD URLs
 abbrev: mud-acceptable-urls
 docname: draft-richardson-opsawg-mud-acceptable-urls-03
 
-# stand_alone: true
-
 ipr: trust200902
 area: Operations
 wg: OPSAWG Working Group
@@ -94,6 +92,8 @@ are difficult to do.
 
 # Updating MUD URLs vs Updating MUD files
 
+There are two ways in which a manufacturer can change what the is processed by the MUD controller: they can change what is in the MUD file (update-in-place), and or they change which file is processed by the MUD controller by changing the URL (updated-url).
+
 ## Updating the MUD file in place
 
 One option is for the manufacturer to never change the MUD URL due to firmware updates.
@@ -181,9 +181,11 @@ accepted.
 There are mitigating mechanisms which may be enough to deal with this problem when MUD
 files are signed by the  manufacturer.
 
-It should be noted that {{RFC8520}} has not established a trust model for MUD controllers to
-determine whether a signature from a specific entity is legitimate as a
-signature for a particular device.  {{RFC8520}} leaves this to the industry to work out through supply chain arrangements or other heuristics.
+While {{RFC8520}} has established a mechanism for signing of MUD files, the document does not define a way for a MUD controller to determine who should sign the MUD file for a particular device.
+
+{{RFC8520}} leaves this for a local policy.
+There are any number of processes that could be used, but they require coordination of many players.
+It is expected that each industrial vertical will work out supply chain arrangements or other heuristics.
 
 ## Trust on First Use (TOFU): leveraging the manufacturer signature
 
