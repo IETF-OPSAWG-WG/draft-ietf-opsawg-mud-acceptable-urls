@@ -310,6 +310,7 @@ However, it is possible that even observing the traffic to that manufacturer may
 # Security Considerations
 
 Prior to the standardization of the process in this document, if a device was infiltrated by malware, and said malware wished to make accesses beyond what the current MUD file allowed, the the malware would have to:
+
 1. arrange for an equivalent MUD file to be visible somewhere on the Internet
 2. depend upon the MUD-manager either not checking signatures, or
 3. somehow get the manufacturer to sign the alternate MUD
@@ -329,6 +330,21 @@ A manufacturer which has not managed their MUD files in the the way described he
 using the MUD-URL attribute.
 
 There is therefore no significant flag day: MUD managers may implement the new policy without significant concern about backwards compatibility.
+
+## Updating files vs Updating MUD URLs
+
+Device developers need to consider whether to make a change by updating a MUD file, or updating the MUD URL.
+
+MUD URLs can only be updated by shipping a new firmware.
+It is reasonable to update the MUD URL whenever a new firmware release causes new connectivity to be required.
+The updated mechanism defined in this document makes this a secure operation, and there is no practical limitation on the number of files that a web server can hold.
+
+In place updates to a MUD file should be restricted to cases where it turns out that the description was inaccurate: a missing connection, an inadvertent one authorized, or just incorrect information.
+
+Developers should be aware that many enterprise web sites use outsourced content distribution networks, and MUD controllers are likely to cache files for some time.
+Changes to MUD files will take some time to propogate through the various caches.
+An updated MUD URL will however, not experience any cache issues, but can not be deployed with a firmware update.
+
 
 --- back
 
