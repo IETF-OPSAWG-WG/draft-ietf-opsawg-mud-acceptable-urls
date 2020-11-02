@@ -79,6 +79,7 @@ Table of Contents
    5.  Changes to RFC8520  . . . . . . . . . . . . . . . . . . . . .   6
    6.  Privacy Considerations  . . . . . . . . . . . . . . . . . . .   8
    7.  Security Considerations . . . . . . . . . . . . . . . . . . .   8
+     7.1.  Updating files vs Updating MUD URLs . . . . . . . . . . .   9
    8.  References  . . . . . . . . . . . . . . . . . . . . . . . . .   9
      8.1.  Normative References  . . . . . . . . . . . . . . . . . .   9
      8.2.  Informative References  . . . . . . . . . . . . . . . . .   9
@@ -88,18 +89,17 @@ Table of Contents
 1.  Introduction
 
    [RFC8520] provides a standardized way to describe how a specific
-   purpose device makes use of Internet resources.  Access Control Lists
-   (ACLs) can be defined in an RFC8520 Manufacturer Usage Description
-   (MUD) file that permit a device to access Internet resources by DNS
-   name.
-
-   MUD URLs can come from a number of sources:
+   purpose device makes use of Internet resources and associated
+   suggested network behavior, which are describled in a MUD file hosted
+   in its manufacture's server.  By providing a MUD URL, the network
+   manager can locate this MUD file.  MUD URLs can come from a number of
+   sources:
 
    *  IDevID Extensions
 
-   *  DHCP
+   *  DHCP option
 
-   *  LLDP
+   *  LLDP TLV
 
    *  [I-D.richardson-opsawg-securehomegateway-mud] proposes to scan
       them from QRcodes.
@@ -187,12 +187,12 @@ Internet-Draft             mud-acceptable-urls             November 2020
 
    While there is an argument that old firmware was insecure and should
    be replaced, it is often the case that the upgrade process involves
-   downttime, or can introduce risks due to needed evaluations not
-   having been completed yet.  As an example: moving vehicles (cars,
-   airplanes, etc.) should not perform upgrades while in motion!  It is
-   probably undesireable to perform any upgrade to an airplane outside
-   of its service facility.  The owner of a vehicle may desire to only
-   perform software upgrades when they are at home, and could make other
+   downtime, or can introduce risks due to needed evaluations not having
+   been completed yet.  As an example: moving vehicles (cars, airplanes,
+   etc.) should not perform upgrades while in motion!  It is probably
+   undesireable to perform any upgrade to an airplane outside of its
+   service facility.  The owner of a vehicle may desire to only perform
+   software upgrades when they are at home, and could make other
    arrangements for transporation, rather than when parked at a remote
    cabin.  The situation for upgrades of medical devices has even more
    considerations involving regulatory compliance.
@@ -242,8 +242,8 @@ Internet-Draft             mud-acceptable-urls             November 2020
    While many small tweaks to a MUD file can be done in place, the
    situation described above, particularly when it comes to removing
    capabilities will suggests that changes to the MUD URL.  A strategy
-   is do this securely is needed, and the rest of this document provides
-   a mechanism to do this securely.
+   for doing this securely is needed, and the rest of this document
+   provides a mechanism to do this securely.
 
 3.  Threat model for MUD URLs
 
@@ -454,6 +454,29 @@ Internet-Draft             mud-acceptable-urls             November 2020
    implement the new policy without significant concern about backwards
    compatibility.
 
+7.1.  Updating files vs Updating MUD URLs
+
+   Device developers need to consider whether to make a change by
+   updating a MUD file, or updating the MUD URL.
+
+   MUD URLs can only be updated by shipping a new firmware.  It is
+   reasonable to update the MUD URL whenever a new firmware release
+   causes new connectivity to be required.  The updated mechanism
+   defined in this document makes this a secure operation, and there is
+   no practical limitation on the number of files that a web server can
+   hold.
+
+   In place updates to a MUD file should be restricted to cases where it
+   turns out that the description was inaccurate: a missing connection,
+   an inadvertent one authorized, or just incorrect information.
+
+   Developers should be aware that many enterprise web sites use
+   outsourced content distribution networks, and MUD controllers are
+   likely to cache files for some time.  Changes to MUD files will take
+   some time to propogate through the various caches.  An updated MUD
+   URL will however, not experience any cache issues, but can not be
+   deployed with a firmware update.
+
 8.  References
 
 8.1.  Normative References
@@ -473,6 +496,15 @@ Internet-Draft             mud-acceptable-urls             November 2020
    [boycrieswolf]
               "The Boy Who Cried Wolf", 18 January 2020,
               <https://fablesofaesop.com/the-boy-who-cried-wolf.html>.
+
+
+
+
+
+Richardson, et al.         Expires 6 May 2021                   [Page 9]
+
+Internet-Draft             mud-acceptable-urls             November 2020
+
 
    [boywolfinfosec]
               "Security Alerts - A Case of the Boy Who Cried Wolf?", 18
@@ -499,13 +531,6 @@ Internet-Draft             mud-acceptable-urls             November 2020
               <http://www.ietf.org/internet-drafts/draft-reddy-opsawg-
               mud-tls-05.txt>.
 
-
-
-Richardson, et al.         Expires 6 May 2021                   [Page 9]
-
-Internet-Draft             mud-acceptable-urls             November 2020
-
-
    [I-D.richardson-opsawg-securehomegateway-mud]
               Richardson, M., Latour, J., and H. Gharakheili, "On
               loading MUD URLs from QR codes", Work in Progress,
@@ -528,6 +553,13 @@ Authors' Addresses
    Huawei Technologies Co., Ltd.
 
    Email: jay.yang@huawei.com
+
+
+
+
+Richardson, et al.         Expires 6 May 2021                  [Page 10]
+
+Internet-Draft             mud-acceptable-urls             November 2020
 
 
    Eliot Lear
@@ -557,4 +589,28 @@ Authors' Addresses
 
 
 
-Richardson, et al.         Expires 6 May 2021                  [Page 10]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Richardson, et al.         Expires 6 May 2021                  [Page 11]
