@@ -5,12 +5,13 @@ ${DRAFT}-${VERSION}.txt: ${DRAFT}.txt
 	cp ${DRAFT}.txt ${DRAFT}-${VERSION}.txt
 	: git add ${DRAFT}-${VERSION}.txt ${DRAFT}.txt
 
-%.xml: %.md
-	kramdown-rfc2629 ${DRAFT}.md > ${DRAFT}.xml
-	: git add ${DRAFT}.xml
+%.xml: %.mkd
+	kramdown-rfc2629 ${DRAFT}.mkd | ./insert-figures >${DRAFT}.xml
+	unset DISPLAY; XML_LIBRARY=$(XML_LIBRARY):./src xml2rfc --v2v3 ${DRAFT}.xml
+	mv ${DRAFT}.v2v3.xml ${DRAFT}.xml
 
 %.txt: %.xml
-	unset DISPLAY; XML_LIBRARY=$(XML_LIBRARY):./src xml2rfc $? $@
+	unset DISPLAY; XML_LIBRARY=$(XML_LIBRARY):./src xml2rfc --text -o $@ $?
 
 %.html: %.xml
 	unset DISPLAY; XML_LIBRARY=$(XML_LIBRARY):./src xml2rfc --html -o $@ $?
@@ -22,6 +23,6 @@ version:
 	echo Version: ${VERSION}
 
 clean:
-	-rm -f ${DRAFT}.xml ${CWTDATE1} ${CWTDATE2}
+	-rm -f ${DRAFT}.xml
 
 .PRECIOUS: ${DRAFT}.xml
