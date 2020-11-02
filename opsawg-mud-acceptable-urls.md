@@ -127,14 +127,8 @@ In this case, the new MUD file will forbid some connection which the old firmwar
 As explained in the previous section, upgrades may not always occur immediately upon release of the new firmware.
 
 In this case the old device will be performing unwanted connections, and the MUD controller when be alerting the device owner that the device is mis-behaving.
-<<<<<<< HEAD
-This causes a false positive situation (see {{boycrieswolf}}, leading to real security issues being ignored.
-This is a serious issue as documented also in {{boywolfinfosec}}, and
-{{falsemalware}}.
-=======
 This causes a false positive situation (see {{boycrieswolf}}), leading to real security issues being ignored.
 This is a serious issue as documented also in {{boywolfinfosec}}, and {{falsemalware}}.
->>>>>>> 0af1968... revise/edit acceptable-urls document
 
 ### Significant changes to protocols
 
@@ -150,11 +144,7 @@ versions, and in place updates to MUD files are therefore not indicated.
 While many small tweaks to a MUD file can be done in place, the situation
 described above, particularly when it comes to removing capabilities will
 suggests that changes to the MUD URL.
-<<<<<<< HEAD
 A strategy for doing this securely is needed, and the rest of this document
-=======
-A strategy is do this securely is needed, and the rest of this document
->>>>>>> 0af1968... revise/edit acceptable-urls document
 provides a mechanism to do this securely.
 
 # Threat model for MUD URLs
@@ -163,21 +153,6 @@ Only the DHCP and LLDP MUD URL mechanisms are sufficiently close to the firmware
 version that they can be easily updated when the firmware is updated.
 Because of that sensitivity, they may also be easily changed by malware!
 
-<<<<<<< HEAD
-There are mitigating mechanisms which may be enough to deal with this problem when
-MUD files are signed by the manufacturer.
-It should be noted that {{RFC8520}} has not established a trust model for MUD controllers to
-determine whether a signature from a specific entity is legitimate as a
-signature for a particular device.
-{{RFC8520}} leaves this to the industry to work out through supply chain arrangements or other heuristics.
-
-## Trust on First Use (TOFU): leveraging the manufacturer signature
-
-Many MUD controllers currently use a Trust on First Use (TOFU) mechanism.The
-first time a signature from a device is verified, the identity of the signing authority is recorded.
-It is pinned. Subsequent updates to that MUD file must be signed by the same entity in order to be
-accepted.
-=======
 There are mitigating mechanisms which may be enough to deal with this problem when MUD
 files are signed by the  manufacturer.
 
@@ -194,7 +169,6 @@ The first time a signature from a particular device-type is verified, the identi
 is recorded.
 It is pinned.
 Subsequent updates to that MUD file must be signed by the same entity in order to be accepted.
->>>>>>> 0af1968... revise/edit acceptable-urls document
 
 Based upon this process, an update to the MUD URL would be valid if the new
 MUD file was signed by the same entity that signed the previous entry.
@@ -207,35 +181,6 @@ There is still a potential threat: a manufacturer which has many products may
 have a MUD definition for another product that has the privileges that the
 malware desires.
 
-<<<<<<< HEAD
-The malware could simply change the expressed MUD URL to that of the
-other product, and it will be accepted by the MUD controller as
-valid.
-
-This works as long as manufacturers use a single key to sign all
-products. Some manufacturers could sign each product with a
-different key. Possibly, all the keys are collected into a single
-PKI, signed by a common certification authority. In this case, the
-question as to whether the MUD controller should pin the end-entity
-(EE) certificate, or the CA certificate. Pinning the EE certificate
-defends against malware that changes the product type, but keeps the
-manufacturer from being able to cycle the validity of the End-Entity
-Certificate for cryptographic hygiene reasons. Pinning the CA
-certificate allows the EE certificate to change, but may not defend
-against product type changes.
-
-It is possible to invent policy mechanisms that would link the EE
-certificate to a value that is in the MUD file. This could be a
-policy OID, or could involve some content in a subjectAltName.
-Future work could go in this direction. This document proposes a
-simpler solution.
-
-# Outline of proposed mechanism
-
-The document proposes to limit what MUD URLs are considered valid
-from the device, limiting new MUD URLs to be variations of the
-initial (presumed to be secure) URL.
-=======
 The malware could simply change the expressed MUD URL to that of the other product, and it will be accepted by the MUD controller as valid.
 
 This works as long as manufacturers use a single key to sign all products.
@@ -253,7 +198,6 @@ This document proposes a simpler solution.
 # Outline of proposed mechanism
 
 The document proposes to limit what MUD URLs are considered valid from the device, limiting new MUD URLs to be variations of the initial (presumed to be secure) URL.
->>>>>>> 0af1968... revise/edit acceptable-urls document
 
 # Changes to RFC8520
 
@@ -288,15 +232,9 @@ any URL that starts with http://example.com/hello/there/ would be acceptable, su
 http://example.com/hello/there/revision2.json.
 
 Once the new MUD file is accepted, then it becomes the new "root" MUD file, and
-<<<<<<< HEAD
-any subsequent updates must be relative to the MUD-URL in this new file.
-This process allows a manufacturer to rework their file structure, to change web server hostnames (such as  when there is an acquisition or merger), etc. so long as they retain the old structure long enough for
-all devices to upgrade at least once.
-=======
 any subsequent updates must be relative to the MUD-URL in the new file.
 
 This process allows a manufacturer to rework their file structure, to change web server hostnames (such as when there is an acquisition or merger), etc. so long as they retain the old structure long enough for all devices to upgrade at least once.
->>>>>>> 0af1968... revise/edit acceptable-urls document
 
 (XXX: how should the trust anchor for the signature be updated when	there is Merger&Acquisition)
 
