@@ -1,7 +1,7 @@
 ---
 title: Authorized update to MUD URLs
 abbrev: mud-acceptable-urls
-docname: draft-richardson-opsawg-mud-acceptable-urls-02
+docname: draft-richardson-opsawg-mud-acceptable-urls-03
 
 # stand_alone: true
 
@@ -57,7 +57,9 @@ informative:
 --- abstract
 
 This document provides a way for an RFC8520 Manufacturer Usage Description
-(MUD) definitions to declare what are acceptable replacement URLs for a device.
+(MUD) definitions to declare what are acceptable replacement MUD URLs for a device.
+
+RFCEDITOR-please-remove: this document is being worked on at: https://github.com/mcr/iot-mud-acceptable-urls
 
 --- middle
 
