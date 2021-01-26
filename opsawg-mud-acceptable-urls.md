@@ -1,7 +1,7 @@
 ---
 title: Authorized update to MUD URLs
 abbrev: mud-acceptable-urls
-docname: draft-richardson-opsawg-mud-acceptable-urls-03
+docname: draft-ietf-opsawg-mud-acceptable-urls-00
 
 ipr: trust200902
 area: Operations
@@ -22,10 +22,10 @@ author:
   org: Sandelman Software Works
   email: mcr+ietf@sandelman.ca
 
-- ins: J. Yang
-  name: Jie Yang
-  org: Huawei Technologies Co., Ltd.
-  email: jay.yang@huawei.com
+- ins: W. Pan
+  name: Wei Pan
+  org: Huawei Technologies
+  email: william.panwei@huawei.com
 
 - ins: E. Lear
   name: Eliot Lear
