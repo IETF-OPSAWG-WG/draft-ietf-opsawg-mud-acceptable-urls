@@ -117,7 +117,7 @@ While there is an argument that old firmware was insecure and should be replaced
 As an example: moving vehicles (cars, airplanes, etc.) should not perform upgrades while in motion!
 It is probably undesireable to perform any upgrade to an airplane outside of its service facility.
 The owner of a vehicle may desire to only perform software upgrades when they are at home, and could make other arrangements for transporation, rather than when parked at a remote cabin.
-The situation for upgrades of medical devices has even more	considerations involving regulatory compliance.
+The situation for upgrades of medical devices has even more considerations involving regulatory compliance.
 
 ### Removing capabilities
 
@@ -236,7 +236,7 @@ any subsequent updates must be relative to the MUD-URL in the new file.
 
 This process allows a manufacturer to rework their file structure, to change web server hostnames (such as when there is an acquisition or merger), etc. so long as they retain the old structure long enough for all devices to upgrade at least once.
 
-(XXX: how should the trust anchor for the signature be updated when	there is Merger&Acquisition)
+(XXX: how should the trust anchor for the signature be updated when there is Merger&Acquisition)
 
 # Privacy Considerations
 
