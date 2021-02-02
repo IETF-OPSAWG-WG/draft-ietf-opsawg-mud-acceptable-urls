@@ -218,7 +218,7 @@ Going logically down this path, if all these product keys are collected into a s
 
 In this case, the question then becomes whether the MUD controller should pin the End-Entity (EE) certificate, or the CA certificate.
 
-Pinning the EE certificate defends against malware that changes the product type, but keeps the manufacturer from being able to cycle the validity of the EE certificate for cryptographic hygiene reasons.
+Pinning the End-Entity (EE) certificate defends against malware that changes the product type, but keeps the manufacturer from being able to cycle the validity of the End-Entity Certificate for cryptographic hygiene reasons.
 
 Pinning the CA certificate allows the EE certificate to change, but may not defend against product type changes.
 
