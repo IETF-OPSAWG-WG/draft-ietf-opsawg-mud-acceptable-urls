@@ -132,7 +132,7 @@ For situations where existing capabilities prove to be a problem and are to be t
 In this case, the new MUD file will forbid some connection which the old firmware still expects to do.
 As explained in the previous section, upgrades may not always occur immediately upon release of the new firmware.
 
-In this case the old device will be performing unwanted connections, and the MUD controller when be alerting the device owner that the device is mis-behaving.
+In this case the old device will be performing unwanted connections, and the MUD controller will then send alerts to the network owner that the device is mis-behaving.
 This causes a false positive situation (see {{boycrieswolf}}), leading to real security issues being ignored.
 This is a serious issue as documented also in {{boywolfinfosec}}, and {{falsemalware}}.
 
