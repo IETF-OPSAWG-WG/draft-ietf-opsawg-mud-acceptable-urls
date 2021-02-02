@@ -32,13 +32,17 @@ author:
   org: Cisco Systems
   email: lear@cisco.com
 
+contributor:
+  - name: Tianqing Tang
+    email: tangtianqing@huawei.com
+
 normative:
   RFC3986:
   RFC8520:
 
 informative:
   I-D.reddy-opsawg-mud-tls:
-  I-D.richardson-opsawg-securehomegateway-mud: securehomegateway-mud
+  I-D.richardson-mud-qrcode:
   boycrieswolf:
     title: "The Boy Who Cried Wolf"
     target: "https://fablesofaesop.com/the-boy-who-cried-wolf.html"
@@ -64,14 +68,15 @@ RFCEDITOR-please-remove: this document is being worked on at: https://github.com
 # Introduction
 
 {{RFC8520}} provides a standardized way to describe how a specific purpose
-device makes use of Internet resources and associated suggested network behavior, which are describled in a MUD file hosted in its manufacture's server. By providing a MUD URL, the network manager can locate this MUD file.
+device makes use of Internet resources and associated suggested network behavior, which are describled in a MUD file hosted in its manufacture's server.
+By providing a MUD URL, the network manager can locate this MUD file.
 MUD URLs can come from a number of sources:
 
 * IDevID Extensions
 * DHCP option
 * LLDP TLV
 
-* {{-securehomegateway-mud}} proposes to scan them from QRcodes.
+* {{I-D.richardson-mud-qrcode}} proposes to scan them from QRcodes.
 
 The IDevID mechanism provides a URL that is asserted cryptographically by a manufacturer.
 However, it is difficult for manufacturers to update the IDevID of a device which is already in a box.
