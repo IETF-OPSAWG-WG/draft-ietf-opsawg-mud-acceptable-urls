@@ -86,14 +86,15 @@ A firmware update may update what MUD URL is emitted.
 Sufficiently well targetted malware could also change the MUD URL.
 
 The QRcode mechanism is usually done via paper/stickers, and is typically not under the control of the device itself at all.
+However, being applied by a human and not easily changed, a MUD URL obtained in this fashion is likely trustworthy.
+(It may not, due to mixups in labelling represent the correct device, but this is a human coordination issue, and is out of scope for this document)
 
-While MUD files may include signatures, it is not mandatory to check them, and there is not a clear way to connect the entity which signed the MUD file to the device itself.
-A malicious device does not need to make up a MUD file if there is already an available, and already trusted MUD file which it can use to impersonate the device.
+While MUD files may include signatures, {{RFC8520}} does not mandate checking them, and there is not a clear way to connect the entity which signed the MUD file to the device itself.
 
-One defense against this is to not trust MUD URLs which are different from the one that was placed in an IDevID.
-Or if the initial MUD URL was not taken from an IDevID, it could be trusted on first use.
-But, if the MUD controller has locked down the URL, then updates to the URL
-are difficult to do.
+This document limits itself to situations in which the MUD file is signed, and that the MUD controller has been configured to always check the signatures, rejecting files whose signatures do not match.
+
+{{RFC8520}} does not specify how MUD controllers establish their trust in the manufacturers' signing key: there are many possible solutions from manual configuration of trust anchors, some kind of automatic configuration during onboarding, but also including to Trust on First Use (TOFU).
+How this initial trust is established is not important for this document, it is sufficient that some satisfactory initial trust is established.
 
 # Updating MUD URLs vs Updating MUD files
 
