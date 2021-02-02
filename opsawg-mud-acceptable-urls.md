@@ -16,17 +16,14 @@ pi:    # can use array (if all yes) or hash here
   symrefs: yes
 
 author:
-
 - ins: M. Richardson
   name: Michael Richardson
   org: Sandelman Software Works
   email: mcr+ietf@sandelman.ca
-
 - ins: W. Pan
   name: Wei Pan
   org: Huawei Technologies
   email: william.panwei@huawei.com
-
 - ins: E. Lear
   name: Eliot Lear
   org: Cisco Systems
