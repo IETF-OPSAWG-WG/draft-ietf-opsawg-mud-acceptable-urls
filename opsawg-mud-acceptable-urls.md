@@ -33,6 +33,9 @@ author:
   email: lear@cisco.com
 
 contributor:
+  - name: Jie Yang
+    email: jay.yang@huawei.com
+
   - name: Tianqing Tang
     email: tangtianqing@huawei.com
 
@@ -276,7 +279,7 @@ The process described updates only MUD controllers and the processes that manufa
 A manufacturer which has not managed their MUD files in the the way described here can deploy new directories of per-product MUD files, and then can update the existing MUD files in place to point to the new URLs
 using the MUD-URL attribute.
 
-There is therefore no significant flag day: MUD managers may implement the new policy without significant concern about backwards compatibility.
+There is therefore no significant flag day: MUD controllers may implement the new policy without significant concern about backwards compatibility.
 
 ## Updating files vs Updating MUD URLs
 
