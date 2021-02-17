@@ -191,9 +191,12 @@ The malware could simply change the expressed MUD URL to that of the other produ
 
 This works as long as manufacturers use a single key to sign all products.
 Some manufacturers could sign each product with a different key.
-Possibly, all the keys are collected into a single PKI, signed by a common certification authority.
-In this case, the question as to whether the MUD controller should pin the end-entity (EE) certificate, or the CA certificate.
+Going logically down this path, if all these product keys are collected into a single PKI, signed by a common certification authority.
+
+In this case, the question then becomes whether the MUD controller should pin the end-entity (EE) certificate, or the CA certificate.
+
 Pinning the EE certificate defends against malware that changes the product type, but keeps the manufacturer from being able to cycle the validity of the End-Entity Certificate for cryptographic hygiene reasons.
+
 Pinning the CA certificate allows the EE certificate to change, but may not defend against product type changes.
 
 It is possible to invent policy mechanisms that would link the EE certificate to a value that is in the MUD file.
@@ -238,7 +241,7 @@ any URL that starts with http://example.com/hello/there/ would be acceptable, su
 http://example.com/hello/there/revision2.json.
 
 Once the new MUD file is accepted, then it becomes the new "root" MUD file, and
-any subsequent updates must be relative to the MUD-URL in the new file.
+any subsequent updates MUST be relative to the MUD-URL in the new file.
 
 This process allows a manufacturer to rework their file structure, to change web server hostnames (such as when there is an acquisition or merger), etc. so long as they retain the old structure long enough for all devices to upgrade at least once.
 
@@ -256,9 +259,9 @@ However, it is possible that even observing the traffic to that manufacturer may
 Prior to the standardization of the process in this document, if a device was infiltrated by malware, and said malware wished to make accesses beyond what the current MUD file allowed, the the malware would have to:
 
 1. arrange for an equivalent MUD file to be visible somewhere on the Internet
-2. depend upon the MUD-manager either not checking signatures, or
+2. depend upon the MUD controller either not checking signatures, or
 3. somehow get the manufacturer to sign the alternate MUD
-4. announce this new URL via DHCP or LLDP, updating the MUD-manager with the new permissions.
+4. announce this new URL via DHCP or LLDP, updating the MUD controller with the new permissions.
 
 One way to accomplish (3) is to leverage the existence of MUD files created by the manufacturer for different classes of devices.
 Such files would already be signed by the same manufacturer, eliminating the need to spoof a signature.
@@ -268,7 +271,7 @@ With the standardization of the process in this document, then the attacker can 
 Manufacturers are advised to maintain an orderly layout of MUD files in their web servers,
 with each unique producting having its own directory/pathname.
 
-The process described updates only MUD-managers and the processes that manufacturers use to manage the location of their MUD files.
+The process described updates only MUD controllers and the processes that manufacturers use to manage the location of their MUD files.
 
 A manufacturer which has not managed their MUD files in the the way described here can deploy new directories of per-product MUD files, and then can update the existing MUD files in place to point to the new URLs
 using the MUD-URL attribute.
