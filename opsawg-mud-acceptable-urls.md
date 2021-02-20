@@ -78,11 +78,11 @@ and the description in the original MUD file will no longer apply.
 To solve this problem, there are two common ways which the manufacturer can use.
 
 One is to change what is in the MUD file, i.e., update the MUD file in place, whenever the behavior of the firmware changes.
-{updatemudfiles} discusses three scenarios for updating the MUD file and the corresponding potential issues.
+{{updatemudfiles}} discusses three scenarios for updating the MUD file and the corresponding potential issues.
 
 The other is to change which MUD file is processed by changing the MUD URL.
-{updatemudurls} describes the common sources of MUD URLs and the problems and threats faced by each type of source when updating the MUD URL.
-This document proposes an enhanced mechanism of how to securely update the MUD URL in {proposedmechanism}.
+{{updatemudurls}} describes the common sources of MUD URLs and the problems and threats faced by each type of source when updating the MUD URL.
+This document proposes an enhanced mechanism of how to securely update the MUD URL in {{proposedmechanism}}.
 
 There are also some assumptions and prerequisites in this document.
 
@@ -215,7 +215,7 @@ Going logically down this path, if all these product keys are collected into a s
 
 In this case, the question then becomes whether the MUD controller should pin the End-Entity (EE) certificate, or the CA certificate.
 
-Pinning the End-Entity (EE) certificate defends against malware that changes the product type, but keeps the manufacturer from being able to cycle the validity of the End-Entity Certificate for cryptographic hygiene reasons.
+Pinning the End-Entity (EE) certificate defends against malware that changes the product type, but keeps the manufacturer from being able to cycle the validity of the End-Entity certificate for cryptographic hygiene reasons.
 
 Pinning the CA certificate allows the EE certificate to change, but may not defend against product type changes.
 
