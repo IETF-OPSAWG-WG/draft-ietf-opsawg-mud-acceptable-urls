@@ -1,7 +1,7 @@
 ---
 title: Authorized update to MUD URLs
 abbrev: mud-acceptable-urls
-docname: draft-ietf-opsawg-mud-acceptable-urls-02
+docname: draft-ietf-opsawg-mud-acceptable-urls-03
 
 ipr: trust200902
 area: Operations
