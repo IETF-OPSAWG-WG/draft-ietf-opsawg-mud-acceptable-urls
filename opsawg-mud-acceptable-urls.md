@@ -317,14 +317,16 @@ Values of less than 1 hour, or more than 1 month should be considered out of ran
 MUD controllers SHOULD add some random jitter to the timing of their requests.
 MUD controllers MAY use a single HTTP(S)/1.1 connection to retrieve all resources at the same destination.
 
-(XXX: how should the trust anchor for the signature be updated when there is Merger&Acquisition)
 
 # Privacy Considerations
 
 The MUD URL contains sensitive model and even firmware revision numbers.
 Thus the MUD URL identifies the make, model and revision of a device.
+
 {{RFC8520}} already identifies this privacy concern, and suggests use of TLS so that the HTTP requests that retrieve the MUD file do not divulge that level of detail.
-However, it is possible that even observing the traffic to that manufacturer may be revealing, and {{RFC8520}} goes on to suggest use of a proxy as well.
+
+The requirement for the MUD controller to poll for changes results in multiple interactions between the MUD controller and the manufacturer.
+Even if HTTPS used, an observer of the traffic to that manufacturer will be revealing, and {{RFC8520}} goes on to suggest use of a proxy as well.
 
 # Security Considerations
 
