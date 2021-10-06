@@ -263,7 +263,59 @@ http://example.com/hello/there/revision2.json.
 Once the new MUD file is accepted, then it becomes the new "root" MUD file, and
 any subsequent updates MUST be relative to the MUD-URL in the new file.
 
-This process allows a manufacturer to rework its file structure, to change web server host names (such as when there is an acquisition or merger), etc. so long as they retain the old structure long enough for all devices to upgrade at least once.
+## Merger, Acquisitions and Key Changes
+
+The above process allows for a manufacturer to rework its file structure.
+They can change web server host names, so long as they retain the old structure long enough for  all devices to upgrade at least once.
+
+The process also allows a manufacturer to change the EE certificate and Certification Authority used for signing.
+
+### Changing file structure
+
+A manufacturer has been hosting a MUD file at https://example.com/household/products/mudfiles/toaster.json
+and wishes to move it to https://example.com/mudfiles/toasters/model1945/mud.json
+
+The manufacturer simply changes the MUD-URL contained with the files at the old location to have a value of https://example.com/mudfiles/toasters/model1945/mud.json.
+The manufacturer must continue to serve the files from the old location for some time, or to return an HTTP 301 (Moved Permanently) redirecting to the new location.
+
+### Changing hosting URLs
+
+A manufacturer has been hosting a MUD file at https://example.com/household/products/mudfiles/toaster.json
+and wishes to move it to https://mud.example/example.com/toasters/model1945/mud.json
+
+The manufacturer simply changes the MUD-URL contained with the files at the old location to have a value of https://example.com/mudfiles/toasters/model1945/mud.json.
+The manufacturer has to continue to host at the old location until such time as it is sure that all MUD controllers have loaded the new data, and that all devices in the field have upgraded their URL.
+A 301 Redirect that changed the hostname SHOULD NOT be accepted by MUD controllers.
+
+### Changing Signing Authority
+
+A manufacturer has been signing MUD files using an EE Certificate with subjectAltName foo.example, issued by an internal Certification Authority BAZ.
+
+The manufacturer wishes to begin signing with an EE Certificate with subjectAltname foo.example, but now signed by a public CA (call it: Fluffy).
+
+The manufacturer first creates a new MUD file with a new detached signature file.
+Within this signature file, the manufacturer places a certificate chain: Internal-CA BAZ->Fluffy,
+and then the Fluffy Certificate, and then the foo.example certificate issued from Fluffy.
+
+This supports changing certification authorities, but it does not support changing the Subject Name of the signing entity.
+
+# Polling for changes in MUD files
+
+The MUD file update mechanisms described in {{updatemudfiles}} requires that the MUD controller poll for updates.
+The MUD controller will receive no signal about a change from the device because the URL will not have changed.
+
+The manufacturer SHOULD serve mud files from a source for which ETag {{Section 2.3 of RFC7232}} may be generated.
+Static files on disk satisfy this requirement.
+MUD files generated from a database process might not.
+The use of ETag allows a MUD controller to more efficiently poll for changes in the file.
+
+A manufacturer should also serve MUD files with an HTTP Max-Age header as per {{Section 5.2.2.8 of RFC7234}}.
+
+The MUD controller should take the Max-Age as an indication of when to next poll for updates to the MUD file.
+Values of less than 1 hour, or more than 1 month should be considered out of range, and clamped into the range (1 hour, 1 month).
+
+MUD controllers SHOULD add some random jitter to the timing of their requests.
+MUD controllers MAY use a single HTTP(S)/1.1 connection to retrieve all resources at the same destination.
 
 (XXX: how should the trust anchor for the signature be updated when there is Merger&Acquisition)
 
