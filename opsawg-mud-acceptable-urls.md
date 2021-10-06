@@ -43,6 +43,8 @@ normative:
 informative:
   I-D.ietf-opsawg-mud-tls:
   I-D.richardson-mud-qrcode:
+  RFC7232:
+  RFC7234:
   boycrieswolf:
     title: "The Boy Who Cried Wolf"
     target: "https://fablesofaesop.com/the-boy-who-cried-wolf.html"
