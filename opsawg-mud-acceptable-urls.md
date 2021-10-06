@@ -68,9 +68,9 @@ RFCEDITOR-please-remove: this document is being worked on at: https://github.com
 # Introduction
 
 {{RFC8520}} provides a standardized way to describe how a specific purpose
-device makes use of Internet resources and associated suggested network behavior,
-which are described in a MUD file hosted in its manufacturer's server.
-By providing a MUD URL by the device, the network manager can locate this MUD file
+device makes use of Internet resources and associated suggested network behavior.
+The behaviors are described in a MUD file hosted in its manufacturer's server.
+The device provides a MUD URL to the network manager, which can locate this MUD file
 and determine the required network authorization of the device.
 
 In some cases, e.g., the firmware update, the network behaviors of the device may change,
@@ -119,7 +119,8 @@ The new MUD file would provide for such access, but when combined with the weak 
 While there is an argument that old firmware was insecure and should be replaced, it is often the case that the upgrade process involves downtime, or can introduce risks due to needed evaluations not having been completed yet.
 As an example: moving vehicles (cars, airplanes, etc.) should not perform upgrades while in motion!
 It is probably undesirable to perform any upgrade to an airplane outside of its service facility.
-The vehicle owner may desire only to perform software upgrades when they are at home, and could make other arrangements for transportation, rather than when parked at a remote cabin.
+A vehicle owner may desire only to perform software upgrades when they are at their residence.   Should there be a problem, they could make alternate arrangements for transportation.
+This is constrasted with the situation when the vehicle is parked at, for instance, a remote cabin.
 The situation for upgrades of medical devices has even more considerations involving regulatory compliance.
 
 ## Removing capabilities
@@ -140,13 +141,13 @@ Such a profile may be very specific to the TLS library which is shipped in a dev
 Changes to the library (including bug fixes) may cause significant changes to
 the profile, requiring changes to the profile described in the MUD file.
 Such changes are likely neither forward nor backward compatible with other
-versions, and in place updates to MUD files are therefore not indicated.
+versions, and in place updates to MUD files are therefore not advised.
 
 ## Motivation for updating MUD URLs
 
 While many small tweaks to a MUD file can be done in place, the situation
 described above, particularly when it comes to removing capabilities will
-suggest that changes to the MUD URL.
+suggest that changes to the MUD URL are in order.
 A strategy for doing this securely is needed, and the rest of this document
 provides a mechanism to do this securely.
 
@@ -164,7 +165,7 @@ However, it is difficult for manufacturers to update the IDevID of a device whic
 
 The DHCP and LLDP mechanisms are not signed, but are asserted by the device.
 A firmware update may update what MUD URL is emitted.
-Sufficiently well targeted malware could also change the MUD URL.
+Sufficiently well targeted malware would also be able to change the MUD URL that is emitted.
 
 The QRcode mechanism is usually done via paper/stickers, and is typically not under the control of the device itself at all.
 However, being applied by a human and not easily changed, a MUD URL obtained in this fashion is likely trustworthy.
@@ -188,8 +189,8 @@ It is expected that each industrial vertical will work out supply chain arrangem
 
 When the first time a signature of the MUD file related to a particular device-type
 is verified by the MUD controller, the identity of the signing authority is recorded.
-It is pinned.
-Subsequent MUD files must be signed by the same entity in order to be accepted.
+That it, the signing authorith is pinned.
+This policy means that subsequent MUD files must be signed by the same entity in order to be accepted.
 
 The trust and acceptance of the first signer may come from many sources,
 for example, it could be manual configured to trust which signer,
@@ -215,7 +216,7 @@ Going logically down this path, if all these product keys are collected into a s
 
 In this case, the question then becomes whether the MUD controller should pin the End-Entity (EE) certificate, or the CA certificate.
 
-Pinning the End-Entity (EE) certificate defends against malware that changes the product type, but keeps the manufacturer from being able to cycle the validity of the End-Entity certificate for cryptographic hygiene reasons.
+Pinning the End-Entity (EE) certificate defends against malware that changes the product type, but prevents the manufacturer from being able to cycle the validity of the End-Entity certificate for cryptographic hygiene reasons.
 
 Pinning the CA certificate allows the EE certificate to change, but may not defend against product type changes.
 
@@ -243,10 +244,13 @@ The URL found in the MUD-URL attribute is to be called the canonical MUD URL for
 
 The MUD-SIGNATURE attribute in the MUD file SHOULD be a relative URI (see {{RFC3986}} section 4.2) with the (hierarchical) base URI for this reference being the MUD-URL attribute.
 
+When pinning the signature, the MUD controller SHOULD pin the lowest Certification Authority (CA) that was used in the validation of the CMS structure, along with the chain of Subject Names leading to the signature.
+The MUD controller may need additional trust anchors (including previously pinned ones) in order to verify that CA certificate.
+
 Subsequent MUD files are considered valid if:
 
 * they have the same initial Base-URI as the MUD-URL, but may have a different final part
-* they are signed by the same End Entity (same trusted CA and same subjectAltName) as the "root" MUD file.
+* they are signed by an equivalent End Entity (same trusted CA and same Subject Name) as the "root" MUD file.
 
 Section 5.2 of {{RFC3986}} details many cases for calculating the Base-URI.
 The test is simplified to: remove everything to the right of the last (rightmost) "/" in the URL of "root" MUD  file URL, and the proposed new URL.
