@@ -191,7 +191,7 @@ It is expected that each industrial vertical will work out supply chain arrangem
 
 When the first time a signature of the MUD file related to a particular device-type
 is verified by the MUD controller, the identity of the signing authority is recorded.
-That it, the signing authorith is pinned.
+That it, the signing authority is pinned.
 This policy means that subsequent MUD files must be signed by the same entity in order to be accepted.
 
 The trust and acceptance of the first signer may come from many sources,
