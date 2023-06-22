@@ -1,14 +1,14 @@
 ---
 title: Authorized update to MUD URLs
 abbrev: mud-acceptable-urls
-docname: draft-ietf-opsawg-mud-acceptable-urls-06
+docname: draft-ietf-opsawg-mud-acceptable-urls-07
 
 ipr: trust200902
 area: Operations
 wg: OPSAWG Working Group
 kw: Internet-Draft
 updates: 8520
-cat: bcp
+cat: std
 
 pi:    # can use array (if all yes) or hash here
   toc: yes
@@ -99,6 +99,10 @@ there are many possible solutions from manual configuration of trust anchors,
 some kind of automatic configuration during onboarding, but also including to Trust on First Use (TOFU).
 How this initial trust is established is not important for this document,
 it is sufficient that some satisfactory initial trust is established.
+
+# Terminology
+
+{::boilerplate bcp14}
 
 # Updating the MUD files in place {#updatemudfiles}
 
