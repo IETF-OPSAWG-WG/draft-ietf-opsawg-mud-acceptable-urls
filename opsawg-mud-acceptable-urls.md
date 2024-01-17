@@ -334,6 +334,10 @@ Thus the MUD URL identifies the make, model and revision of a device.
 The requirement for the MUD controller to poll for changes results in multiple interactions between the MUD controller and the manufacturer.
 Even if HTTPS used, an observer of the traffic to that manufacturer will be revealing, and {{RFC8520}} goes on to suggest use of a proxy as well.
 
+# IANA Considerations
+
+This document makes no requests to IANA.
+
 # Security Considerations
 
 Prior to the standardization of the process in this document, if a device was infiltrated by malware, and said malware wished to make accesses beyond what the current MUD file allowed, the the malware would have to:
