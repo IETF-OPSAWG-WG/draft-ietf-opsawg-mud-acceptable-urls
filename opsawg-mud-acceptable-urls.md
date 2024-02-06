@@ -220,7 +220,7 @@ The malware could simply change the expressed MUD URL to that of the other produ
 
 This works as long as manufacturers use a single key to sign all products.
 Some manufacturers could sign each product with a different key.
-Going logically down this path, if all these product keys are collected into a single PKI, signed by a common certification authority.
+Such manufacturers would probably then collect all the signing keys into a certificate infrastructure (PKI), with a single manufacturer CA key.
 
 In this case, the question then becomes whether the MUD controller should pin the End-Entity (EE) certificate, or the CA certificate.
 
