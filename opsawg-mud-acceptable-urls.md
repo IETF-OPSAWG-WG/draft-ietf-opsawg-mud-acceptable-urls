@@ -264,12 +264,13 @@ Section 5.2 of {{RFC3986}} details many cases for calculating the Base-URI.
 The test is simplified to: remove everything to the right of the last (rightmost) "/" in the URL of "root" MUD  file URL, and the proposed new URL.
 The resulting two strings MUST be identical.
 
-For a simple example, if the "root" MUD-URL is http://example.com/hello/there/file.json then
+For a simple example, if the canonical MUD-URL is http://example.com/hello/there/file.json then
 any URL that starts with http://example.com/hello/there/ would be acceptable, such as
 http://example.com/hello/there/revision2.json.
 
-Once the new MUD file is accepted, then it becomes the new "root" MUD file, and
-any subsequent updates MUST be relative to the MUD-URL in the new file.
+Once this new MUD file is accepted, then the MUD-URL attribute in this file becomes the new canonical MUD file.
+As a result, any subsequent updates MUST be relative to the new MUD-URL in this file.
+This rule enables the location of the MUD file to change over time based upon the needs of the organization.
 
 ## Merger, Acquisitions and Key Changes
 
