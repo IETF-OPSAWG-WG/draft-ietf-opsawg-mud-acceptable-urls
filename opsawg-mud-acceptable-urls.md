@@ -96,7 +96,8 @@ rejecting files whose signatures do not match.
 
 {{RFC8520}} does not specify how MUD controllers establish their trust in the manufacturers' signing key:
 there are many possible solutions from manual configuration of trust anchors,
-some kind of automatic configuration during onboarding, but also including to Trust on First Use (TOFU).
+some kind of automatic configuration during onboarding,
+or a Trust on First Use (TOFU) mechanism that accepts the signer on first use.
 How this initial trust is established is not important for this document,
 it is sufficient that some satisfactory initial trust is established.
 
