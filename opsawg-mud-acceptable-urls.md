@@ -233,7 +233,7 @@ This could be a policy OID, or could involve some content in a subjectAltName.
 Future work could go in this direction.
 This document proposes a simpler solution.
 
-# Proposed mechanism {#proposedmechanism}
+# Proposed mechanism for updating MUD URLs {#proposedmechanism}
 
 The document proposes to limit what MUD URLs are considered valid from the device, limiting new MUD URLs to be variations of the initial (presumed to be secure) URL.
 
