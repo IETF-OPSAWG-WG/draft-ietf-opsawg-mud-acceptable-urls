@@ -176,7 +176,7 @@ A firmware update may update what MUD URL is emitted.
 Sufficiently well targeted malware would also be able to change the MUD URL that is emitted.
 
 The QRcode mechanism is usually done via paper/stickers, and is typically not under the control of the device itself at all.
-However, being applied by a human and not easily changed, a MUD URL obtained in this fashion is likely trustworthy.
+However, being applied by a human and not easily changed, a MUD URL obtained in this fashion is likely as trustworthy as the rest of the vendors packaging.
 (It may not, due to mixups in labeling represent the correct device, but this is a human coordination issue, and is out of scope for this document.)
 
 The manufacturer can use all the four mechanisms above when manufacturing the device.
