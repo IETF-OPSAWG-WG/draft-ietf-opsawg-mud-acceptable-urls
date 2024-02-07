@@ -229,7 +229,7 @@ Pinning the CA certificate allows the EE certificate to change, but may not defe
 
 It is possible to invent policy mechanisms that would link the EE certificate to a value that is in the MUD file.
 This could be a policy OID, or could involve some content in a subjectAltName.
-Future work could go in this direction.
+Future work could go in that direction.
 This document proposes a simpler solution.
 
 # Proposed mechanism for updating MUD URLs {#proposedmechanism}
@@ -319,7 +319,7 @@ This supports changing certification authorities, but it does not support changi
 The MUD file update mechanisms described in {{updatemudfiles}} requires that the MUD controller poll for updates.
 The MUD controller will receive no signal about a change from the device because the URL will not have changed.
 
-The manufacturer SHOULD serve mud files from a source for which ETag {{Section 2.3 of RFC7232}} may be generated.
+The manufacturer SHOULD serve MUD files from a source for which ETag {{Section 2.3 of RFC7232}} may be generated.
 Static files on disk satisfy this requirement.
 MUD files generated from a database process might not.
 The use of ETag allows a MUD controller to more efficiently poll for changes in the file.
@@ -353,7 +353,7 @@ Prior to the standardization of the process in this document, if a device was in
 
 1. arrange for an equivalent MUD file to be visible somewhere on the Internet
 2. depend upon the MUD controller either not checking signatures, or
-3. somehow get the manufacturer to sign the alternate MUD
+3. somehow get the manufacturer to sign the alternate MUD file
 4. announce this new URL via DHCP or LLDP, updating the MUD controller with the new permissions.
 
 One way to accomplish (3) is to leverage the existence of MUD files created by the manufacturer for different classes of devices.
