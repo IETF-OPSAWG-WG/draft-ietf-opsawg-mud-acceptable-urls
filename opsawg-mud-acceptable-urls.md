@@ -336,7 +336,7 @@ MUD controllers MAY use a single HTTP(S)/1.1 connection to retrieve all resource
 # Privacy Considerations
 
 The MUD URL could contain sensitive information such as the model number and even firmware revision numbers.
-Thus the MUD URL may identify the make, model and revision of a device.
+Thus, the MUD URL may identify the make, model and revision of a device.
 
 {{RFC8520}} already identifies this privacy concern, and suggests use of TLS so that the HTTP requests that retrieve the MUD file do not divulge that level of detail.
 
@@ -349,7 +349,7 @@ This document makes no requests to IANA.
 
 # Security Considerations
 
-Prior to the standardization of the process in this document, if a device was infiltrated by malware, and said malware wished to make accesses beyond what the current MUD file allowed, the the malware would have to:
+Prior to the standardization of the process in this document, if a device was infiltrated by malware, and said malware wished to make accesses beyond what the current MUD file allowed, the malware would have to:
 
 1. arrange for an equivalent MUD file to be visible somewhere on the Internet
 2. depend upon the MUD controller either not checking signatures, or
@@ -366,7 +366,7 @@ with each unique product having its own directory/pathname.
 
 The process described updates only MUD controllers and the processes that manufacturers use to manage the location of their MUD files.
 
-A manufacturer which has not managed their MUD files in the the way described here can deploy new directories of per-product MUD files, and then can update the existing MUD files in place to point to the new URLs
+A manufacturer which has not managed their MUD files in the way described here can deploy new directories of per-product MUD files, and then can update the existing MUD files in place to point to the new URLs
 using the MUD-URL attribute.
 
 There is therefore no significant flag day: MUD controllers may implement the new policy without significant concern about backwards compatibility.
@@ -381,7 +381,7 @@ The updated mechanism defined in this document makes this a secure operation, an
 
 In place updates to a MUD file should be restricted to cases where it turns out that the description was inaccurate: a missing connection, an inadvertent one authorized, or just incorrect information.
 
-Developers should be aware that many enterprise web sites use outsourced content distribution networks, and MUD controllers are likely to cache files for some time.
+Developers should be aware that many enterprise websites use outsourced content distribution networks, and MUD controllers are likely to cache files for some time.
 Changes to MUD files will take some time to propagate through the various caches.
 An updated MUD URL will however, not experience any cache issues, but can not be deployed with a firmware update.
 
