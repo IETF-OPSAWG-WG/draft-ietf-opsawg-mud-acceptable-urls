@@ -279,7 +279,7 @@ They can change web server host names, so long as they retain the old structure 
 
 The process also allows a manufacturer to change the EE certificate and Certification Authority used for signing.
 
-### Changing file structure
+### Changing file structure {#file-structure-change}
 
 A manufacturer has been hosting a MUD file at https://example.com/household/products/mudfiles/toaster.json
 and wishes to move it to https://example.com/mudfiles/toasters/model1945/mud.json
@@ -287,7 +287,7 @@ and wishes to move it to https://example.com/mudfiles/toasters/model1945/mud.jso
 The manufacturer creates a new MUD file at the new location.
 
 Then the manufacturer changes the MUD-URL contained with the files at the old location to have a value of https://example.com/mudfiles/toasters/model1945/mud.json.
-Note that in order for MUD controllers to reload the old file, it MUST have been served with an appropriate ETag, and appropriate Expires or Cache Control headers {{RFC9111, Section 5.3}}.
+Note that in order for MUD controllers to reload the old file, it MUST have been served with an appropriate ETag, and appropriate Expires or Cache Control headers {{?RFC9111, Section 5.3}}.
 If control over caching is not possible for the manufacturer, then they need to do this in two steps, with the first step creating a new MUD file at an acceptable location (in the above example, perhaps: https://example.com/household/products/mudfiles/toaster0.json ).
 The device then will have to do two firmware updates: one to switch to the intermediate URL, and a second one to switch to the desired final URL.
 
@@ -296,11 +296,12 @@ The manufacturer must continue to serve the files from the old location for some
 ### Changing hosting URLs
 
 A manufacturer has been hosting a MUD file at https://example.com/household/products/mudfiles/toaster.json
-and wishes to move it to https://mud.example/example.com/toasters/model1945/mud.json
+and wishes to move it to https://mud.example/hosthold/products/mudfiles/toaster.json
 
-The manufacturer simply changes the MUD-URL contained with the files at the old location to have a value of https://example.com/mudfiles/toasters/model1945/mud.json.
-The manufacturer has to continue to host at the old location until such time as it is sure that all MUD controllers have loaded the new data, and that all devices in the field have upgraded their URL.
-A 301 Redirect that changed the hostname SHOULD NOT be accepted by MUD controllers.
+The scenario is much the same as for {{file-structure-change}}, and can be handled in the same fashion.
+This situation is likely to occur when one company acquires another.
+
+Note, however, that a 301 Redirect that changed the hostname SHOULD NOT be accepted by MUD controllers.
 
 ### Changing Signing Authority
 
