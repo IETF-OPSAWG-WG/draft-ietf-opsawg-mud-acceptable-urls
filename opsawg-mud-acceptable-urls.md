@@ -284,7 +284,13 @@ The process also allows a manufacturer to change the EE certificate and Certific
 A manufacturer has been hosting a MUD file at https://example.com/household/products/mudfiles/toaster.json
 and wishes to move it to https://example.com/mudfiles/toasters/model1945/mud.json
 
-The manufacturer simply changes the MUD-URL contained with the files at the old location to have a value of https://example.com/mudfiles/toasters/model1945/mud.json.
+The manufacturer creates a new MUD file at the new location.
+
+Then the manufacturer changes the MUD-URL contained with the files at the old location to have a value of https://example.com/mudfiles/toasters/model1945/mud.json.
+Note that in order for MUD controllers to reload the old file, it MUST have been served with an appropriate ETag, and appropriate Expires or Cache Control headers {{RFC9111, Section 5.3}}.
+If control over caching is not possible for the manufacturer, then they need to do this in two steps, with the first step creating a new MUD file at an acceptable location (in the above example, perhaps: https://example.com/household/products/mudfiles/toaster0.json ).
+The device then will have to do two firmware updates: one to switch to the intermediate URL, and a second one to switch to the desired final URL.
+
 The manufacturer must continue to serve the files from the old location for some time, or to return an HTTP 301 (Moved Permanently) redirecting to the new location.
 
 ### Changing hosting URLs
