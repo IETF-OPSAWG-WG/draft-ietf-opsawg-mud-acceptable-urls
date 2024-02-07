@@ -336,12 +336,12 @@ MUD controllers MAY use a single HTTP(S)/1.1 connection to retrieve all resource
 
 # Privacy Considerations
 
-The MUD URL contains sensitive model and even firmware revision numbers.
-Thus the MUD URL identifies the make, model and revision of a device.
+The MUD URL could contain sensitive information such as the model number and even firmware revision numbers.
+Thus the MUD URL may identify the make, model and revision of a device.
 
 {{RFC8520}} already identifies this privacy concern, and suggests use of TLS so that the HTTP requests that retrieve the MUD file do not divulge that level of detail.
 
-The requirement for the MUD controller to poll for changes results in multiple interactions between the MUD controller and the manufacturer.
+The requirement for the MUD controller to poll for changes to MUD files results in multiple interactions between the MUD controller and the manufacturer whereas a more naive implementation might only interact once.
 Even if HTTPS used, an observer of the traffic to that manufacturer will be revealing, and {{RFC8520}} goes on to suggest use of a proxy as well.
 
 # IANA Considerations
