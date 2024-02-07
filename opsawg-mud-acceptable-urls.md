@@ -138,7 +138,7 @@ For situations where existing capabilities prove to be a problem and are to be t
 In this case, the new MUD file will forbid some connections, which the old firmware still expects to do.
 As explained in the previous section, upgrades may not always occur immediately upon releasing the new firmware.
 
-In this case, the old device will be performing unwanted connections, and the MUD controller will be alerting the network owner that the device is misbehaving rather than not upgraded.
+In this case, the old device will be performing unwanted connections, and the MUD controller will be alerting the network owner that the device is misbehaving rather than not being upgraded.
 This causes a false-positive situation (see {{boycrieswolf}}), leading to real security issues being ignored.
 This is a serious issue as documented also in {{boywolfinfosec}}, and {{falsemalware}}.
 
@@ -195,15 +195,14 @@ It is expected that each industrial vertical will work out supply chain arrangem
 
 ## Leveraging the manufacturer signature
 
-When the first time a signature of the MUD file related to a particular device-type
+The first time a signature of the MUD file related to a particular device-type
 is verified by the MUD controller, the identity of the signing authority is recorded.
 That it, the signing authority is pinned.
 This policy means that subsequent MUD files must be signed by the same entity in order to be accepted.
 
-The trust and acceptance of the first signer may come from many sources,
-for example, it could be manual configured to trust which signer,
-or using the IDevID mechanism for the first MUD URL and the signer of the corresponding MUD file is more trustworthy,
-or the MUD controller can use a Trust on First Use (TOFU) mechanism and trusts the first signer by default.
+The trust and acceptance of the first signer may come from many sources.
+The first signature could be from a manually configured trust anchor in the MUD controller.
+The first signature be Trust on First Use (TOFU), with the URL coming a trusted IDevID certificate.
 
 Based upon this process, an update to the MUD URL would be valid if the new
 MUD file was signed by the same entity that signed the previous entry.
