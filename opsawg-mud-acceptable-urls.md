@@ -205,7 +205,7 @@ This policy means that subsequent MUD files must be signed by the same entity in
 
 The trust and acceptance of the first signer may come from many sources.
 The first signature could be from a manually configured trust anchor in the MUD controller.
-The first signature be Trust on First Use (TOFU), with the URL coming a trusted IDevID certificate.
+The first signature could be Trust on First Use (TOFU), with the URL coming from a trusted IDevID certificate.
 
 Based upon this process, an update to the MUD URL would be valid if the new
 MUD file was signed by the same entity that signed the previous entry.
