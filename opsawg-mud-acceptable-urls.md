@@ -127,7 +127,7 @@ While there is an argument that old firmware was insecure and should be replaced
 As an example: moving vehicles (cars, airplanes, etc.) should not perform upgrades while in motion!
 It is probably undesirable to perform any upgrade to an airplane outside of its service facility.
 A vehicle owner may desire only to perform software upgrades when they are at their residence.   Should there be a problem, they could make alternate arrangements for transportation.
-This contrasts with an alternative situation where the vehicle is parked at, for instance, a remote cabin, where an upgrade failure could cause a much greater inconvenience.
+This contrasts with an alternative situation where the vehicle is parked at, for instance, a remote cabin, and where an upgrade failure could cause a much greater inconvenience.
 
 The situation for upgrades of medical devices has even more considerations involving regulatory compliance.
 
