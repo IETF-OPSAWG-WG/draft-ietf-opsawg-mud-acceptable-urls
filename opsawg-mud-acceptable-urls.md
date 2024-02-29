@@ -252,7 +252,10 @@ The URL found in the MUD-URL attribute is to be called the canonical MUD URL for
 The MUD-SIGNATURE attribute in the MUD file SHOULD be a relative URI (see {{RFC3986}} section 4.2) with the (hierarchical) base URI for this reference being the MUD-URL attribute.
 
 When pinning the signature, the MUD controller SHOULD pin the lowest Certification Authority (CA) that was used in the validation of the CMS structure, along with the chain of Subject Names leading to the signature.
-The MUD controller may need additional trust anchors (including previously pinned ones) in order to verify that CA certificate.
+The MUD controller may need additional trust anchors (including previously
+pinned ones) in order to verify that CA certificate.
+
+## Small Changes to the MUD URL
 
 Subsequent MUD files are considered valid if:
 
@@ -260,16 +263,31 @@ Subsequent MUD files are considered valid if:
 * they are signed by an equivalent End Entity (same trusted CA and same Subject Name) as the "root" MUD file.
 
 Section 5.2 of {{RFC3986}} details many cases for calculating the Base-URI.
-The test is simplified to: remove everything to the right of the last (rightmost) "/" in the URL of "root" MUD  file URL, and the proposed new URL.
-The resulting two strings MUST be identical.
+
+Section 3.3 of {{RFC3986}} explains how the different parts of the URL are
+described.
+As explained in that section, a _path_ component consists of a series of
+_segment_ seperated by slash ("/") characters.
+The new URL is considered acceptable if it contains the same series of
+segments in its path, excepting that the last segment may be different.
 
 For a simple example, if the canonical MUD-URL is http://example.com/hello/there/file.json then
 any URL that starts with http://example.com/hello/there/ would be acceptable, such as
 http://example.com/hello/there/revision2.json.
 
-Once this new MUD file is accepted, then the MUD-URL attribute in this file becomes the new canonical MUD file.
-As a result, any subsequent updates MUST be relative to the new MUD-URL in this file.
-This rule enables the location of the MUD file to change over time based upon the needs of the organization.
+## Big Changes to the MUD URL
+
+Once a new MUD file is accepted, either by reloading an existing file from
+the same URL, or via the Small Changes mechanism described above, then the
+MUD-URL attribute in this file becomes the new canonical MUD file.
+The contained MUD-URL attribute in the file need not be related in any way to
+the existing MUD-URL.
+
+As a result, any subsequent updates MUST be relative to the new MUD-URL in
+this file.
+
+This rule enables the location of the MUD file to change over time based upon
+the needs of the organization.
 
 ## Merger, Acquisitions and Key Changes
 
