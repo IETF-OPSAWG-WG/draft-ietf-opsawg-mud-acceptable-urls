@@ -187,11 +187,14 @@ Because of that sensitivity, they may also be easily changed by malware!
 There are mitigating mechanisms which may be enough to deal with this problem when MUD
 files are signed by the manufacturer.
 
-While {{RFC8520}} has established a mechanism for signing of MUD files, the document does not define a way for a MUD controller to determine who should sign the MUD file for a particular device.
+{{RFC8520, Section 13.2}} explains how to verify MUD File Signatures.
+That document does not define a way for a MUD controller to determine who should sign the MUD file for a particular device.
 
 {{RFC8520}} leaves this for a local policy.
-There are a number of processes that could be used, but they require coordination of many players.
-It is expected that each industrial vertical will work out supply chain arrangements or other heuristics.
+This document establishes one such local policy.
+There are a number of other processes that could be used, it is expected that
+many such industrial vertical will work out supply chain arrangements or other
+heuristics to supply appropriate anchors.
 
 ## Leveraging the manufacturer signature
 
