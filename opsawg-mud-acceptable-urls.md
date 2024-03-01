@@ -72,7 +72,7 @@ RFCEDITOR-please-remove: this document is being worked on at: https://github.com
 {{RFC8520}} provides a standardized way to describe how a specific purpose
 device makes use of Internet resources and associated suggested network behavior.
 The behaviors are described in a MUD file hosted in its manufacturer's server.
-The device provides a MUD URL to the network manager, which can locate this MUD file
+The device provides a MUD URL to the MUD controller, which can locate this MUD file
 and determine the required network authorization of the device.
 
 In some cases, e.g., the firmware update, the network behaviors of the device may change,
@@ -254,8 +254,8 @@ The URL found in the MUD-URL attribute is to be called the canonical MUD URL for
 
 The MUD-SIGNATURE attribute in the MUD file SHOULD be a relative URI (see {{RFC3986}} section 4.2) with the (hierarchical) base URI for this reference being the MUD-URL attribute.
 
-When pinning the signature, the MUD controller SHOULD pin the lowest Certification Authority (CA) that was used in the validation of the CMS structure, along with the chain of Subject Names leading to the signature.
-The MUD controller may need additional trust anchors (including previously
+When pinning the signature, the MUD manager SHOULD pin the lowest Certification Authority (CA) that was used in the validation of the CMS structure, along with the chain of Subject Names leading to the signature.
+The MUD manager may need additional trust anchors (including previously
 pinned ones) in order to verify that CA certificate.
 
 ## Small Changes to the MUD URL
