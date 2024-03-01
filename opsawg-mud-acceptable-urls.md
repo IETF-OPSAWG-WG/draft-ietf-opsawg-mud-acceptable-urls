@@ -278,6 +278,19 @@ For a simple example, if the canonical MUD-URL is http://example.com/hello/there
 any URL that starts with http://example.com/hello/there/ would be acceptable, such as
 http://example.com/hello/there/revision2.json.
 
+One problem with these small changes is that malware could still express a
+MUD file that was previously valid, but which should no longer considered
+accurate.
+This is a rollback attack.
+This might result in the malware being able to reach destinations that turned
+out to be a mistake; a security fault.
+In order to combat, this, MUD managers SHOULD keep track of the list of
+MUD-URLs that they have successfully retrieved, and if a device ever suggests a URL that was
+previously used, then the MUD manager should suspect that is a rollback attack.
+MUD managers are not typically not particularily constrained, and while the
+list of URLs could grow without bound, it is unlikely to be a burden.
+A site with thousands of similar devices could keep a common list of URLs.
+
 ## Big Changes to the MUD URL
 
 Once a new MUD file is accepted, either by reloading an existing file from
