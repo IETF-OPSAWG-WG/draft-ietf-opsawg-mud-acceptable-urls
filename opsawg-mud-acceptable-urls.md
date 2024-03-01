@@ -72,7 +72,7 @@ RFCEDITOR-please-remove: this document is being worked on at: https://github.com
 {{RFC8520}} provides a standardized way to describe how a specific purpose
 device makes use of Internet resources and associated suggested network behavior.
 The behaviors are described in a MUD file hosted in its manufacturer's server.
-The device provides a MUD URL to the network manager, which can locate this MUD file
+The device provides a MUD URL to the MUD controller, which can locate this MUD file
 and determine the required network authorization of the device.
 
 In some cases, e.g., the firmware update, the network behaviors of the device may change,
@@ -187,11 +187,14 @@ Because of that sensitivity, they may also be easily changed by malware!
 There are mitigating mechanisms which may be enough to deal with this problem when MUD
 files are signed by the manufacturer.
 
-While {{RFC8520}} has established a mechanism for signing of MUD files, the document does not define a way for a MUD controller to determine who should sign the MUD file for a particular device.
+{{RFC8520, Section 13.2}} explains how to verify MUD File Signatures.
+That document does not define a way for a MUD controller to determine who should sign the MUD file for a particular device.
 
 {{RFC8520}} leaves this for a local policy.
-There are a number of processes that could be used, but they require coordination of many players.
-It is expected that each industrial vertical will work out supply chain arrangements or other heuristics.
+This document establishes one such local policy.
+There are a number of other processes that could be used, it is expected that
+many such industrial vertical will work out supply chain arrangements or other
+heuristics to supply appropriate anchors.
 
 ## Leveraging the manufacturer signature
 
@@ -251,8 +254,8 @@ The URL found in the MUD-URL attribute is to be called the canonical MUD URL for
 
 The MUD-SIGNATURE attribute in the MUD file SHOULD be a relative URI (see {{RFC3986}} section 4.2) with the (hierarchical) base URI for this reference being the MUD-URL attribute.
 
-When pinning the signature, the MUD controller SHOULD pin the lowest Certification Authority (CA) that was used in the validation of the CMS structure, along with the chain of Subject Names leading to the signature.
-The MUD controller may need additional trust anchors (including previously
+When pinning the signature, the MUD manager SHOULD pin the lowest Certification Authority (CA) that was used in the validation of the CMS structure, along with the chain of Subject Names leading to the signature.
+The MUD manager may need additional trust anchors (including previously
 pinned ones) in order to verify that CA certificate.
 
 ## Small Changes to the MUD URL
@@ -274,6 +277,19 @@ segments in its path, excepting that the last segment may be different.
 For a simple example, if the canonical MUD-URL is http://example.com/hello/there/file.json then
 any URL that starts with http://example.com/hello/there/ would be acceptable, such as
 http://example.com/hello/there/revision2.json.
+
+One problem with these small changes is that malware could still express a
+MUD file that was previously valid, but which should no longer considered
+accurate.
+This is a rollback attack.
+This might result in the malware being able to reach destinations that turned
+out to be a mistake; a security fault.
+In order to combat this, MUD managers SHOULD keep track of the list of
+MUD-URLs that they have successfully retrieved, and if a device ever suggests a URL that was
+previously used, then the MUD manager should suspect that is a rollback attack.
+MUD managers are not typically resource constrained, and while the
+list of URLs could grow without bound, it is unlikely to be a burden.
+A site with thousands of similar devices could keep a common list of URLs.
 
 ## Big Changes to the MUD URL
 
