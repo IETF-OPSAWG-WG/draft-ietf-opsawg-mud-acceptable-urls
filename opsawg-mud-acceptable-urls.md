@@ -284,7 +284,7 @@ accurate.
 This is a rollback attack.
 This might result in the malware being able to reach destinations that turned
 out to be a mistake; a security fault.
-In order to combat, this, MUD managers SHOULD keep track of the list of
+In order to combat this, MUD managers SHOULD keep track of the list of
 MUD-URLs that they have successfully retrieved, and if a device ever suggests a URL that was
 previously used, then the MUD manager should suspect that is a rollback attack.
 MUD managers are not typically not particularily constrained, and while the
