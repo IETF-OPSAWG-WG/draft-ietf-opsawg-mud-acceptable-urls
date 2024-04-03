@@ -55,7 +55,7 @@ informative:
     date: 2020-01-18
   falsemalware:
     title: "False malware alerts cost organizations $1.27M annually, report says"
-    target: "https://www.scmagazine.com/home/security-news/false-malware-alerts-cost-organizations-1-27m-annually-report-says/ and http://go.cyphort.com/Ponemon-Report-Page.html"
+    target: https://www.scmagazine.com/home/security-news/false-malware-alerts-cost-organizations-1-27m-annually-report-says/
     date: 2020-01-18
 
 --- abstract
