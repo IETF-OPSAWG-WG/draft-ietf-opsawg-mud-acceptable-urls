@@ -105,7 +105,7 @@ it is sufficient that some satisfactory initial trust is established.
 
 {::boilerplate bcp14}
 
-# Possible issues with updating the MUD files in place {#updatemudfiles}
+# Risks of updating the MUD files in place {#updatemudfiles}
 
 Three scenarios for updating the MUD file and the corresponding potential issues are discussed below.
 
@@ -124,10 +124,6 @@ Useful and needed upgrades to the firmware could add credentials to that service
 The new MUD file would provide for such access, but when combined with the weak security of the old firmware, it results in a compromised device.
 
 While there is an argument that old firmware was insecure and should be replaced, it is often the case that the upgrade process involves downtime, or can introduce risks due to needed evaluations not having been completed yet.
-As an example: moving vehicles (cars, airplanes, etc.) should not perform upgrades while in motion!
-It is probably undesirable to perform any upgrade to an airplane outside of its service facility.
-A vehicle owner may desire only to perform software upgrades when they are at their residence.   Should there be a problem, they could make alternate arrangements for transportation.
-This contrasts with an alternative situation where the vehicle is parked at, for instance, a remote cabin, where an upgrade failure could cause a much greater inconvenience.
 
 The situation for upgrades of medical devices has even more considerations involving regulatory compliance.
 
