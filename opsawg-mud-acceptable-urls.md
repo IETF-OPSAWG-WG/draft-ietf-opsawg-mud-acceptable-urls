@@ -215,7 +215,11 @@ There is still a potential threat: a manufacturer which has many products may
 have a MUD definition for another product that has the privileges that the
 malware desires.
 
-The malware could simply change the expressed MUD URL to that of the other product, and it will be accepted by the MUD controller as valid.
+The malware could simply change the MUD URL expressed by DHCP or LLDP to that
+of another product, and it will be accepted by the MUD controller as valid,
+since the MUD file is signed by the same manufacturer.
+(e.g., The malware in a BrandName refriderator claims to be a BrandName Washing
+Machine, and therefore gets the priviledges of the other device)
 
 This works as long as manufacturers use a single key to sign all products.
 Some manufacturers could sign each product with a different key.
