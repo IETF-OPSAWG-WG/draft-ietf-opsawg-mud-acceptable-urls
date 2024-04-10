@@ -105,7 +105,7 @@ it is sufficient that some satisfactory initial trust is established.
 
 {::boilerplate bcp14}
 
-# Possible issues with updating the MUD files in place {#updatemudfiles}
+# Risks of updating the MUD files in place {#updatemudfiles}
 
 Three scenarios for updating the MUD file and the corresponding potential issues are discussed below.
 
