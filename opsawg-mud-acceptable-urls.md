@@ -105,9 +105,12 @@ it is sufficient that some satisfactory initial trust is established.
 
 {::boilerplate bcp14}
 
-# Risks of updating the MUD files in place {#updatemudfiles}
+# Risk analysis of updating the MUD files in place {#updatemudfiles}
 
-Three scenarios for updating the MUD file and the corresponding potential issues are discussed below.
+This section explains three scenarios where updating the MUD file in place
+could cause security issues for the devices involved.
+This section explains why changing the MUD url to point to a new file is important.
+
 
 ## Adding capabilities
 
