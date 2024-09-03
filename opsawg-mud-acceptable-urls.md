@@ -1,7 +1,7 @@
 ---
 title: Authorized update to MUD URLs
 abbrev: mud-acceptable-urls
-docname: draft-ietf-opsawg-mud-acceptable-urls-11
+docname: draft-ietf-opsawg-mud-acceptable-urls-12
 
 ipr: trust200902
 area: Operations
@@ -92,7 +92,7 @@ While MUD files may include signatures, {{RFC8520}} does not mandate checking th
 there is not a clear way to connect the entity which signed the MUD file to the device itself.
 This document limits itself to situations in which the MUD file is signed,
 and that the MUD controller has been configured to always check the signatures,
-rejecting files whose signatures do not match.
+rejecting files whose signatures do not validate.
 
 {{RFC8520}} does not specify how MUD controllers establish their trust in the manufacturers' signing key:
 there are many possible solutions from manual configuration of trust anchors,
