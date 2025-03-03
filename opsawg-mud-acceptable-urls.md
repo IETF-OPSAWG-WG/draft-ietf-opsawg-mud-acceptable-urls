@@ -42,9 +42,19 @@ normative:
 
 informative:
   I-D.ietf-opsawg-mud-tls:
-  I-D.richardson-mud-qrcode:
+  RFC9238:
   RFC7232:
   RFC7234:
+  IEEE_802.1AR-2018:
+    title: 'IEEE Standard for Local and Metropolitan Area Networks -
+    Secure Device Identity'
+    author:
+    - org: IEEE
+    date: 2018-08
+    seriesinfo:
+      IEEE: 802.1AR-2018
+      DOI: 10.1109/IEEESTD.2018.8423794
+    uri: https://ieeexplore.ieee.org/document/8423794
   boycrieswolf:
     title: "The Boy Who Cried Wolf"
     target: "https://fablesofaesop.com/the-boy-who-cried-wolf.html"
@@ -163,7 +173,7 @@ MUD URLs can come from a number of sources:
 * IDevID Extensions
 * DHCP option
 * LLDP TLV
-* {{I-D.richardson-mud-qrcode}} proposes to scan them from QRcodes.
+* {{?RFC9238}} standardizes scanning MUD URLs from QRcodes.
 
 The IDevID mechanism provides a URL that is asserted cryptographically by a manufacturer.
 However, it is difficult for manufacturers to update the IDevID of a device which is already in a box.
@@ -255,9 +265,15 @@ The URL found in the MUD-URL attribute is to be called the canonical MUD URL for
 
 The MUD-SIGNATURE attribute in the MUD file SHOULD be a relative URI (see {{RFC3986}} section 4.2) with the (hierarchical) base URI for this reference being the MUD-URL attribute.
 
-When pinning the signature, the MUD manager SHOULD pin the lowest Certification Authority (CA) that was used in the validation of the CMS structure, along with the chain of Subject Names leading to the signature.
+When pinning the signature, the MUD manager SHOULD use the
+SubjectKeyIdentifier (SKI) {{RFC5280, Section 4.2.1.2}} of the Certificate
+Authority (CA) when pinning the certificate authority.  With this, the chain of Subject
+Names and/or SubjectAltNames leading to the (end entity) signing certificate
+needs to be recorded.
 The MUD manager may need additional trust anchors (including previously
 pinned ones) in order to verify that CA certificate.
+This process allows for the manufacturer to generate new end-entity signing
+certificates, as the certificates for this key expire.
 
 ## Small Changes to the MUD URL
 
