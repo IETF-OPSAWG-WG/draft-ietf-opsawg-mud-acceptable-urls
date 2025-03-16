@@ -266,7 +266,7 @@ The URL found in the MUD-URL attribute is to be called the canonical MUD URL for
 The MUD-SIGNATURE attribute in the MUD file SHOULD be a relative URI (see {{RFC3986}} section 4.2) with the (hierarchical) base URI for this reference being the MUD-URL attribute.
 
 When pinning the signature, the MUD manager SHOULD use the
-SubjectKeyIdentifier (SKI) {{RFC5280, Section 4.2.1.2}} of the Certificate
+SubjectKeyIdentifier (SKI) {{!RFC5280, Section 4.2.1.2}} of the Certificate
 Authority (CA) when pinning the certificate authority.  With this, the chain of Subject
 Names and/or SubjectAltNames leading to the (end entity) signing certificate
 needs to be recorded.
