@@ -1,4 +1,4 @@
-DRAFT:=opsawg-mud-acceptable-urls
+DRAFT:=iotops-mud-acceptable-urls
 VERSION:=$(shell ./getver ${DRAFT}.md )
 
 ${DRAFT}-${VERSION}.txt: ${DRAFT}.txt

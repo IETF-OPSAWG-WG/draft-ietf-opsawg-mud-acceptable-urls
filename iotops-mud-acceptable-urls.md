@@ -1,11 +1,11 @@
 ---
 title: Authorized update to MUD URLs
 abbrev: mud-acceptable-urls
-docname: draft-ietf-opsawg-mud-acceptable-urls-13
+docname: draft-ietf-iotops-mud-acceptable-urls-00
 
 ipr: trust200902
 area: Operations
-wg: OPSAWG Working Group
+wg: IOTOPS Working Group
 kw: Internet-Draft
 updates: 8520
 cat: std
